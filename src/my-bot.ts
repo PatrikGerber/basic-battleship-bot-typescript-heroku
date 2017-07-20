@@ -54,31 +54,34 @@ export class MyBot {
         console.log("I'm hunting");
         if (huntHitCount == 1){
             let hitPosition:{"Row":string, "Column":number};
-            for (let i:number = 1; i<= Math.min(gamestate.MyShots.length,4); i++){
+            let pos:number;
+            for (let i:number = 1; i <= Math.min(gamestate.MyShots.length,4); i++){
                 if (gamestate.MyShots[gamestate.MyShots.length-i].WasHit){
-                    hitPosition = gamestate.MyShots[gamestate.MyShots.length-i].Position;
+                    pos = i;
+                    // hitPosition = gamestate.MyShots[gamestate.MyShots.length-i].Position;
                     break;
                 }
             }
 
+            hitPosition = gamestate.MyShots[gamestate.MyShots.length-pos];
             let row = GameState.converter[hitPosition.Row]; // 0 indexed
             let column = hitPosition.Column-1; // 0 indexed
 
-            if (gamestate.isValidTarget({"Row":row, "Column":column+1})) {
+            if (gamestate.isValidTarget(row, column+1)) {
                 console.log("Actually returning something")
-                return {"Row":GameState.backConverter[row], "Column":column+1};
+                return {"Row":GameState.backConverter[row], "Column":column+2};
             }
-            if (gamestate.isValidTarget({"Row":row, "Column":column-1})) {
+            if (gamestate.isValidTarget(row, column-1)) {
                 console.log("Actually returning something")
-                return {"Row":GameState.backConverter[row], "Column":column-1};
+                return {"Row":GameState.backConverter[row], "Column":column};
             }
-            if (gamestate.isValidTarget({"Row":row+1, "Column":column})) {
+            if (gamestate.isValidTarget(row+1, column)) {
                 console.log("Actually returning something")
-                return {"Row":GameState.backConverter[row+1], "Column":column};
+                return {"Row":GameState.backConverter[row+1], "Column":column+1};
             }
-            if (gamestate.isValidTarget({"Row":row-1, "Column":column})) {
+            if (gamestate.isValidTarget(row-1, column)) {
                 console.log("Actually returning something")
-                return {"Row":GameState.backConverter[row-1], "Column":column};
+                return {"Row":GameState.backConverter[row-1], "Column":column+1};
             }
         }
         console.log("Actually returning something")

@@ -83,23 +83,21 @@ export class GameState{
 
     //  returns true iff this.board has 0 at position (also checks if position is on the board)
     // takes zero indexed position
-    public isValidTarget(position: {"Row":number, "Column":number}):boolean{
-        let row:number = position.Row;
-        let column:number = position.Column;
+    public isValidTarget(row, column):boolean{
         if (row<0 || row>9 || column <0 || column>9) return false;
         return (this.board[row][column]==0);
     }
 
     public randomDraw():{"Row":string, "Column":number}{
-        let ans:Array<{"Row":string, "Column":number}> = [];
+        let freeCells:Array<{"Row":string, "Column":number}> = [];
         for (let row:number = 0; row<10; row++){
             for (let column:number = 0; column<10; column++){
-                if (this.isValidTarget({"Row":row,"Column":column})){
-                    ans.push({"Row":GameState.backConverter[row], "Column":column});
+                if (this.isValidTarget(row,column)){
+                    freeCells.push({"Row":GameState.backConverter[row], "Column":column+1});
                 }
             }
         }
-        let rand:number = Math.random()*ans.length;
-        return {"Row":ans[Math.floor(rand)].Row, "Column":ans[Math.floor(rand)].Column+1};
+        let rand:number = Math.random()*freeCells.length;
+        return freeCells[rand];
     }
 }
