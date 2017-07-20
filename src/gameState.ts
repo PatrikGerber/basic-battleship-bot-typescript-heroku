@@ -46,6 +46,7 @@ export class GameState{
     constructor(reqBody:any){
         // console.log("Constructor called with ");
 
+        // A-J and 1-10
         this.ShipPositions = (reqBody.ShipPositions)?reqBody.ShipPositions:[];
         this.MyShots = (reqBody.MyShots)?reqBody.MyShots:[];
         this.OpponentsShots = (reqBody.OpponentsShots)?reqBody.OpponentsShots:[];
