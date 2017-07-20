@@ -33,6 +33,7 @@ export class MyBot {
 
                 return answer;
             }
+            console.log("IM finally not hunting!!!!!!!!!!!!");
             let answer = this.getRandomNextTarget(gamestate);
             // if (answer == gamestate.MyShots[gamestate.MyShots.length-1].Position)  console.log("Watch out, shootin same place again!");
             // console.log("We're shooting at: ")
