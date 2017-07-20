@@ -13,7 +13,7 @@ export class MyBot {
 
     // gamestate is the body of the post request i.e. req.body
     public selectTarget(gamestate:GameState) {
-        gamestate.display();
+        // gamestate.display();
 
         // Original code, in case something breaks
         // var previousShot = gamestate.MyShots && gamestate.MyShots[gamestate.MyShots.length-1];
