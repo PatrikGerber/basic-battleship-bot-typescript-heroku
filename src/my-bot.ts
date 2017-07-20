@@ -31,8 +31,9 @@ export class MyBot {
         if (huntCount == 1){
             let hitPos:Position;
             for (let i:number = 1; i<=Math.min(gamestate.MyShots.length,4); i++){
+                let position:Position = new Position(gamestate.MyShots[gamestate.MyShots.length-i].Position);
                 let shot:{"Position":{"Row":string, "Column":number}, "WasHit":boolean} = gamestate.MyShots[gamestate.MyShots.length-i];
-                if ((shot.WasHit) && (gamestate.board[shot.Position.Row][shot.Position.Column]!=2)){
+                if ((shot.WasHit) && (gamestate.board[position.row][position.column] != 2)){
                     hitPos = new Position(shot.Position);
                     break;
                 }
