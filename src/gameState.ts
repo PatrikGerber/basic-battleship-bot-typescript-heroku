@@ -37,8 +37,9 @@ export class GameState{
         this.MyShots = (reqBody.MyShots)?reqBody.MyShots:[];
         this.OpponentsShots = (reqBody.OpponentsShots)?reqBody.OpponentsShots:[];
         if (this.MyShots){
+            console.log("length of MyShots: ", this.MyShots.length);
             for (let i:number = 0; i<this.MyShots.length; i++){
-                this.board[this.converter[this.MyShots[i].Position.row]][this.MyShots[i].Position.Column - 1] = (this.MyShots[i].WasHit)? 1 : -1;
+                this.board[this.converter[this.MyShots[i].Position.Row]][this.MyShots[i].Position.Column - 1] = (this.MyShots[i].WasHit)? 1 : -1;
             }
         }
     }
