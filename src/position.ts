@@ -1,8 +1,8 @@
 import {GameState} from "./gamestate"
 
 export class Position{
-    public row;
-    public column;
+    public row:number;
+    public column:number;
     constructor(pos:{"Row":string, "Column":number}){
         this.row = GameState.backConverter[pos.Row];
         this.column = pos.Column - 1;
