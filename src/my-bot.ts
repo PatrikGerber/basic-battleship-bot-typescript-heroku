@@ -38,7 +38,7 @@ export class MyBot {
                     break;
                 }
             }
-            console.log("We had a hit at ");
+            console.log("We had a hit at , just checking git");
             hitPos.Display();
             console.log();
         }
