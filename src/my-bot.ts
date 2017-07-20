@@ -51,10 +51,10 @@ export class MyBot {
     public huntNextTarget(gamestate:GameState, huntHitCount:number):{"Row":string, "Column":number}{
         if (huntHitCount == 1){
             let hitPosition:{"Row":string, "Column":number};
-            console.log("I'm hunting");
+            // console.log("I'm hunting");
             let pos:number;
             for (let i:number = 1; i <= Math.min(gamestate.MyShots.length,4); i++){
-                console.log("Got here");
+                // console.log("Got here");
                 if (gamestate.MyShots[gamestate.MyShots.length-i].WasHit){
                     pos = i;
                     // hitPosition = gamestate.MyShots[gamestate.MyShots.length-i].Position;
@@ -66,8 +66,8 @@ export class MyBot {
             let row:number = GameState.converter[hitPosition.Row]; // 0 indexed
             let column:number = hitPosition.Column-1; // 0 indexed
 
-            console.log(gamestate.isValidTarget(row,column));
-            console.log("_____________asdaskj___________")
+            // console.log(gamestate.isValidTarget(row,column));
+            // console.log("_____________asdaskj___________")
 
             if (gamestate.isValidTarget(row, column+1)) {
                 console.log("Actually returning something")
