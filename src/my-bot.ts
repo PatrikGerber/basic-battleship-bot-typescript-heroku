@@ -83,6 +83,7 @@ export class MyBot {
                 console.log("Actually returning something")
                 return {"Row":GameState.backConverter[row-1], "Column":column+1};
             }
+            console.log("Got here too3");
         }
         // console.log("Actually returning something")
         return this.getRandomNextTarget(gamestate);

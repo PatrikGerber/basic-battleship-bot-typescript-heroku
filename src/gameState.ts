@@ -84,6 +84,7 @@ export class GameState{
     //  returns true iff this.board has 0 at position (also checks if position is on the board)
     // takes zero indexed position
     public isValidTarget(row, column):boolean{
+        console.log("got here too2");
         if (row<0 || row>9 || column <0 || column>9) return false;
         return (this.board[row][column]==0);
     }
