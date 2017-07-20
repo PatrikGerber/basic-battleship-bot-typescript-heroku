@@ -23,16 +23,15 @@ export class MyBot {
 
         let previousShot = (gamestate.MyShots.length != 0)?gamestate.MyShots[gamestate.MyShots.length-1].Position:null;
         if(previousShot) {
-            // if (gamestate.huntHitCount()){
-            //     let answer = this.huntNextTarget(gamestate, gamestate.huntHitCount());
+            if (gamestate.huntHitCount()){
+                let answer = this.huntNextTarget(gamestate, gamestate.huntHitCount());
 
-            //     // console.log("We're shooting at: ")
-            //     // console.log(answer);
-            //     // console.log();
+                // console.log("We're shooting at: ")
+                // console.log(answer);
+                // console.log();
 
-
-            //     return answer;
-            // }
+                return answer;
+            }
             // console.log("IM finally not hunting!!!!!!!!!!!!");
             let answer = this.getRandomNextTarget(gamestate);
             // if (answer == gamestate.MyShots[gamestate.MyShots.length-1].Position)  console.log("Watch out, shootin same place again!");
