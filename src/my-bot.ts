@@ -35,9 +35,9 @@ export class MyBot {
             //     return answer;
             // }
             let answer = this.getRandomNextTarget(gamestate);
-            // console.log("We're shooting at: ")
-            // console.log(answer);
-            // console.log();
+            console.log("We're shooting at: ")
+            console.log(answer);
+            console.log();
             return answer;
         }
         return { Row: "E", Column: 5 };
