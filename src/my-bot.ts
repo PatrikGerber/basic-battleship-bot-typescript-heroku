@@ -54,6 +54,7 @@ export class MyBot {
             console.log("I'm hunting");
             let pos:number;
             for (let i:number = 1; i <= Math.min(gamestate.MyShots.length,4); i++){
+                console.log("Got here");
                 if (gamestate.MyShots[gamestate.MyShots.length-i].WasHit){
                     pos = i;
                     // hitPosition = gamestate.MyShots[gamestate.MyShots.length-i].Position;
