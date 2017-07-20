@@ -9,6 +9,7 @@ export class MyBot {
         ]
     }
 
+    // gamestate is the body of the post request
     public selectTarget(gamestate) {
         var previousShot = gamestate.MyShots && gamestate.MyShots[gamestate.MyShots.length-1];
         if(previousShot) {
