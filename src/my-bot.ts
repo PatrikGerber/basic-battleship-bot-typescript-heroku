@@ -13,7 +13,7 @@ export class MyBot {
     public selectTarget(gamestate) {
         console.log();
         console.log("gamestate.MyShots[0].Position:");
-        console.log(gamestate.MyShots[0].Position);
+        console.log(gamestate.MyShots && gamestate.MyShots[0].Position);
         console.log();
         var previousShot = gamestate.MyShots && gamestate.MyShots[gamestate.MyShots.length-1];
         if(previousShot) {
