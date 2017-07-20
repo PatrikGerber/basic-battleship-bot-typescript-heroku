@@ -28,30 +28,45 @@ export class MyBot {
 
         let previousShot = (gamestate.MyShots.length != 0)?gamestate.MyShots[gamestate.MyShots.length-1].Position:null;
         if(previousShot) {
-            return this.getNextTarget(previousShot);
+            return this.getNextTarget(gamestate);
         }
         return { Row: "E", Column: 5 };
     }
 
     // position = {Row: char, Column:number} is the position of our previous shot
-    private getNextTarget(position) {
-        let column = this.getNextColumn(position.Column);
-        let row = column === 1 ? this.getNextRow(position.Row) : position.Row;
-        return { Row: row, Column: column }
+    private getNextTarget(gamestate:GameState):{Row:string, Column:number}{
+        let found = false;
+        let row:number;
+        let column:number;
+        while (!found){
+            row = Math.floor(Math.random()*10);
+            column = Math.floor(Math.random()*10);
+            if (!gamestate.board[row][column]){
+                found = true;
+            }
+        }
+        return {"Row":GameState.backConverter[row], "Column":column};
     }
+
+    // Original code in case something breaks
+    // private getNextTarget(position) {
+    //     let column = this.getNextColumn(position.Column);
+    //     let row = column === 1 ? this.getNextRow(position.Row) : position.Row;
+    //     return { Row: row, Column: column }
+    // }
 
     // Original code, in case something breaks
-    private getNextRow(row) {
-        let newRow = row.charCodeAt(0) + 1;
-        if(newRow > 'J'.charCodeAt(0)) {
-            return 'A';
-        }
-        return String.fromCharCode(newRow);
-    }
+    // private getNextRow(row) {
+    //     let newRow = row.charCodeAt(0) + 1;
+    //     if(newRow > 'J'.charCodeAt(0)) {
+    //         return 'A';
+    //     }
+    //     return String.fromCharCode(newRow);
+    // }
 
     // Original code, in case something breaks    
-    private getNextColumn(column) {
-        return column % 10 + 1;
-    }
+    // private getNextColumn(column) {
+    //     return column % 10 + 1;
+    // }
 }
 
