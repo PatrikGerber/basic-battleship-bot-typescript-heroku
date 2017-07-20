@@ -21,9 +21,9 @@ export class MyBot {
         if(previousShot) {
             console.log()
             console.log("Getnexttarget: ");
-            console.log(this.getNextTarget(previousShot.Position));
+            console.log(this.getNextTarget(previousShot));
             console.log();
-            return this.getNextTarget(previousShot.Position);
+            return this.getNextTarget(previousShot);
         }
         return { Row: "E", Column: 5 };
     }
