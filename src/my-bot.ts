@@ -11,6 +11,9 @@ export class MyBot {
 
     // gamestate is the body of the post request i.e. req.body
     public selectTarget(gamestate) {
+        console.log("The post request has body:");
+        console.log(gamestate);
+        console.log();
         console.log("Is this working??????????????///////////??????????");
         var previousShot = gamestate.MyShots && gamestate.MyShots[gamestate.MyShots.length-1];
         if(previousShot) {
