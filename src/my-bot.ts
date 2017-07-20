@@ -57,17 +57,19 @@ export class MyBot {
                     break;
                 }
             }
-            if (gamestate.isValidTarget({"Row":GameState.converter[hitPosition.Row], "Column":hitPosition.Column})) {
-                return {"Row":hitPosition.Row, "Column":hitPosition.Column+1};
+            let row = GameState.converter[hitPosition.Row]; // 0 indexed
+            let column = hitPosition.Column-1; // 0 indexed
+            if (gamestate.isValidTarget({"Row":row, "Column":column+1})) {
+                return {"Row":GameState.backConverter[row], "Column":column+1};
             }
-            else if (gamestate.isValidTarget({"Row":GameState.converter[hitPosition.Row], "Column":hitPosition.Column-2})) {
-                return {"Row":hitPosition.Row, "Column":hitPosition.Column-1}
+            if (gamestate.isValidTarget({"Row":row, "Column":column-1})) {
+                return {"Row":GameState.backConverter[row], "Column":column-1};
             }
-            else if (gamestate.isValidTarget({"Row":GameState.converter[hitPosition.Row]+1, "Column":hitPosition.Column})) {
-                return {"Row":GameState.backConverter[GameState.converter[hitPosition.Row]+1], "Column":hitPosition.Column}
+            if (gamestate.isValidTarget({"Row":row+1, "Column":column})) {
+                return {"Row":GameState.backConverter[row+1], "Column":column};
             }
-            else if (gamestate.isValidTarget({"Row":GameState.converter[hitPosition.Row]-1, "Column":hitPosition.Column})) {
-                return {"Row":GameState.backConverter[GameState.converter[hitPosition.Row]-1], "Column":hitPosition.Column}
+            if (gamestate.isValidTarget({"Row":row-1, "Column":column+1})) {
+                return {"Row":GameState.backConverter[row-1], "Column":column+1};
             }
         }
         return this.getRandomNextTarget(gamestate);
