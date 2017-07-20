@@ -98,6 +98,6 @@ export class GameState{
             }
         }
         let rand:number = Math.random()*ans.length;
-        return ans[Math.floor(rand)];
+        return {"Row":ans[Math.floor(rand)].Row, "Column":ans[Math.floor(rand)].Column+1};
     }
 }
