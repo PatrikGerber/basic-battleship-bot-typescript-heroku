@@ -98,7 +98,6 @@ export class GameState{
             }
         }
         let rand:number = Math.random()*freeCells.length;
-        console.log("freeCells[rand]= ", freeCells[rand])
-        return freeCells[rand];
+        return freeCells[Math.floor(rand)];
     }
 }
