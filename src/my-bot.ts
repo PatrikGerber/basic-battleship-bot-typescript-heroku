@@ -19,9 +19,13 @@ export class MyBot {
         // console.log();
         let previousShot = gamestate.MyShots?gamestate.MyShots[gamestate.MyShots.length-1].Position:null;
         if(previousShot) {
+            console.log()
+            console.log("Getnexttarget: ");
+            console.log(this.getNextTarget(previousShot.Position));
+            console.log();
             return this.getNextTarget(previousShot.Position);
         }
-        return { Row: "E", Column: 5 };  
+        return { Row: "E", Column: 5 };
     }
 
     // position is the position of our previous shot
