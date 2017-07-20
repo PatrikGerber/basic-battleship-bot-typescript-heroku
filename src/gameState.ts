@@ -82,6 +82,7 @@ export class GameState{
     }
 
     //  returns true iff this.board has 0 at position (also checks if position is on the board)
+    // takes zero indexed position
     public isValidTarget(position: {"Row":number, "Column":number}):boolean{
         let row:number = position.Row;
         let column:number = position.Column;

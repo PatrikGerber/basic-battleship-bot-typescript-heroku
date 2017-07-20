@@ -57,10 +57,10 @@ export class MyBot {
                     break;
                 }
             }
-            if (gamestate.isValidTarget({"Row":GameState.converter[hitPosition.Row], "Column":hitPosition.Column+1})) {
+            if (gamestate.isValidTarget({"Row":GameState.converter[hitPosition.Row], "Column":hitPosition.Column})) {
                 return {"Row":hitPosition.Row, "Column":hitPosition.Column+1};
             }
-            else if (gamestate.isValidTarget({"Row":GameState.converter[hitPosition.Row], "Column":hitPosition.Column-1})) {
+            else if (gamestate.isValidTarget({"Row":GameState.converter[hitPosition.Row], "Column":hitPosition.Column-2})) {
                 return {"Row":hitPosition.Row, "Column":hitPosition.Column-1}
             }
             else if (gamestate.isValidTarget({"Row":GameState.converter[hitPosition.Row]+1, "Column":hitPosition.Column})) {
