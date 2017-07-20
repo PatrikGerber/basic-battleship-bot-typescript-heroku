@@ -89,7 +89,7 @@ export class GameState{
     }
 
     public randomDraw():{"Row":string, "Column":number}{
-        let ans:Array<{"Row":string, "Column":number}>;
+        let ans:Array<{"Row":string, "Column":number}> = [];
         for (let row:number = 0; row<10; row++){
             for (let column:number = 0; column<10; column++){
                 if (this.isValidTarget({"Row":row,"Column":column})){
