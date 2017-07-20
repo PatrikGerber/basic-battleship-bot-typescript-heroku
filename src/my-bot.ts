@@ -45,16 +45,7 @@ export class MyBot {
 
     // position = {Row: char, Column:number} is the position of our previous shot
     private getRandomNextTarget(gamestate:GameState):{Row:string, Column:number}{
-        let found = false;
-        let row:number;
-        let column:number;
-        while (!found){
-            row = Math.floor(Math.random()*10);
-            column = Math.floor(Math.random()*10);
-            if (gamestate.isValidTarget({"Row":row, "Column":column})) {
-                return {"Row":GameState.backConverter[row], "Column":column+1};
-            }
-        }
+        return gamestate.randomDraw();
     }
 
     public huntNextTarget(gamestate:GameState, huntHitCount:number):{"Row":string, "Column":number}{
