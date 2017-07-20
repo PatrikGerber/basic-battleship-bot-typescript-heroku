@@ -45,7 +45,7 @@ export class MyBot {
                 found = true;
             }
         }
-        return {"Row":GameState.backConverter[row], "Column":column};
+        return {"Row":GameState.backConverter[row], "Column":column+1};
     }
 
     // Original code in case something breaks
