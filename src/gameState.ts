@@ -28,6 +28,8 @@ export class GameState{
         [0,0,0,0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,0,0,0]
     ];
+
+    // reqBody is the request body, a json object
     constructor(reqBody:any){
         this.ShipPositions = (reqBody.ShipPositions)?reqBody.ShipPositions:[];
         this.MyShots = (reqBody.MyShots)?reqBody.MtShots:[];
@@ -37,5 +39,11 @@ export class GameState{
                 this.board[this.converter[this.MyShots[i].Position.row]][this.MyShots[i].Position.Column - 1] = (this.MyShots[i].WasHit)? 1 : -1;
             }
         }
+    }
+
+    public display():void{
+        console.log();
+        console.log(this.board);
+        console.log();
     }
 }
