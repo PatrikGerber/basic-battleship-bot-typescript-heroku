@@ -20,7 +20,7 @@ export class Router {
 
         app.post('/SelectTarget', (req, res) => {
             // let target = myBot.selectTarget(req.body);            
-            let target = myBot.selectTarget(new GameState(req.body.ShipPositions,req.body.MyShots, req.body.OpponentsShots));
+            let target = myBot.selectTarget(new GameState(req.body));
             res.send(target);
         });
 

@@ -1,7 +1,7 @@
 export class GameState{
     public ShipPositions:Array<any>;
     public MyShots:Array<any>;
-    public OpponentShots:Array<any>;
+    public OpponentsShots:Array<any>;
     public converter:any = {
         "A":0, 
         "B":1, 
@@ -28,10 +28,10 @@ export class GameState{
         [0,0,0,0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,0,0,0]
     ];
-    constructor(ShipPositions:Array<any>, MyShots:Array<any>, OpponentShots:Array<any>){
-        this.ShipPositions = ShipPositions;
-        this.MyShots = MyShots;
-        this.OpponentShots = OpponentShots;
+    constructor(reqBody:any){
+        this.ShipPositions = (reqBody.ShipPositions)?reqBody.ShipPositions:[];
+        this.MyShots = (reqBody.MyShots)?reqBody.MtShots:[];
+        this.OpponentsShots = (reqBody.OpponentsShots)?reqBody.OpponentsShots:[];
         if (this.MyShots){
             for (let i:number = 0; i<this.MyShots.length; i++){
                 this.board[this.converter[this.MyShots[i].Position.row]][this.MyShots[i].Position.Column - 1] = (this.MyShots[i].WasHit)? 1 : -1;
