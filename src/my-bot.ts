@@ -24,9 +24,17 @@ export class MyBot {
         let previousShot = (gamestate.MyShots.length != 0)?gamestate.MyShots[gamestate.MyShots.length-1].Position:null;
         if(previousShot) {
             if (gamestate.huntHitCount()){
-                return this.huntNextTarget(gamestate, gamestate.huntHitCount());
+                let answer = this.huntNextTarget(gamestate, gamestate.huntHitCount());
+                console.log("We're shooting at: ")
+                console.log(answer);
+                console.log();
+                return answer;
             }
-            return this.getRandomNextTarget(gamestate);
+            let answer = this.getRandomNextTarget(gamestate);
+            console.log("We're shooting at: ")
+            console.log(answer);
+            console.log();
+            return answer;
         }
         return { Row: "E", Column: 5 };
     }

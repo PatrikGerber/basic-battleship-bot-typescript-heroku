@@ -85,6 +85,6 @@ export class GameState{
         let row:number = position.Row;
         let column:number = position.Column;
         if (row<0 || row>9 || column <0 || column>9) return false;
-        return !this.board[row][column];
+        return (this.board[row][column]==0);
     }
 }
