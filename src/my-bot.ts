@@ -28,6 +28,7 @@ export class MyBot {
     }
 
     public huntTarget(gamestate:GameState, huntCount:number):Position{
+        console.log("Huntcount is ",huntCount);
         if (huntCount == 1){
             let hitPos:Position;
             for (let i:number = 1; i<=Math.min(gamestate.MyShots.length,4); i++){
