@@ -68,9 +68,9 @@ export class GameState{
     // takes zero indexed position
     public isValidTarget(position:Position):boolean{
         if (position.row >= 0){
-            if (position.row <10){
+            if (position.row < 10){
                 if (position.column >= 0){
-                    if (position.column <10){
+                    if (position.column < 10){
                         return (this.board[position.row][position.column]==0);
                     }
                 }
@@ -83,8 +83,8 @@ export class GameState{
         let validPositions:Array<Position> = [];
         for (let row:number = 0; row<10; row++){
             for (let column:number = 0; column<10; column++){
-                if (this.isValidTarget(new Position({"Row": GameState.backConverter[row],"Column":column+1}))){
-                    validPositions.push(new Position({"Row": GameState.backConverter[row],"Column":column+1}));
+                if (this.isValidTarget(new Position({"Row": GameState.backConverter[row],"Column":column+1}))) {
+                    validPositions.push(new Position({"Row": GameState.backConverter[row],"Column":column+1})) ;
                 }
             }
         }

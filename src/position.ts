@@ -1,4 +1,4 @@
-import {GameState} from "./gamestate"
+import {GameState} from "./gameState"
 
 export class Position{
     public row:number;
