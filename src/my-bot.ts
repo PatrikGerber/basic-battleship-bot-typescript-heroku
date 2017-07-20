@@ -64,8 +64,10 @@ export class MyBot {
 
             hitPosition = gamestate.MyShots[gamestate.MyShots.length-pos];
             let row:number = GameState.converter[hitPosition.Row]; // 0 indexed
-            console.log("got here too")
             let column:number = hitPosition.Column-1; // 0 indexed
+
+            console.log(gamestate.isValidTarget(row,column));
+            console.log("_____________asdaskj___________")
 
             if (gamestate.isValidTarget(row, column+1)) {
                 console.log("Actually returning something")
@@ -83,7 +85,6 @@ export class MyBot {
                 console.log("Actually returning something")
                 return {"Row":GameState.backConverter[row-1], "Column":column+1};
             }
-            console.log("Got here too3");
         }
         // console.log("Actually returning something")
         return this.getRandomNextTarget(gamestate);
