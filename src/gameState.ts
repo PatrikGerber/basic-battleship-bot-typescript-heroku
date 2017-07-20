@@ -31,8 +31,10 @@ export class GameState{
 
     // reqBody is the request body, a json object
     constructor(reqBody:any){
+        console.log("Constructor called with ");
+
         this.ShipPositions = (reqBody.ShipPositions)?reqBody.ShipPositions:[];
-        this.MyShots = (reqBody.MyShots)?reqBody.MtShots:[];
+        this.MyShots = (reqBody.MyShots)?reqBody.MyShots:[];
         this.OpponentsShots = (reqBody.OpponentsShots)?reqBody.OpponentsShots:[];
         if (this.MyShots){
             for (let i:number = 0; i<this.MyShots.length; i++){
