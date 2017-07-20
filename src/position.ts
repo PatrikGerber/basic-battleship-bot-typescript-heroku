@@ -8,7 +8,7 @@ export class Position{
         this.column = pos.Column - 1;
     }
     public structure():{"Row":string, "Column":number}{
-        return {"Row":GameState.converter[this.row], "Column":this.column+1};
+        return {"Row":GameState.backConverter[this.row], "Column":this.column+1};
     }
     public Display(){
         console.log("row: ", this.row, " column: ", this.column);
