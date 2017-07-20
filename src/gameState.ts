@@ -83,8 +83,10 @@ export class GameState{
         let validTargets:Array<Position> = [];
         for (let row:number = 0; row<10; row++){
             for (let column:number = 0; column<10; column++){
-                if (this.isValidTarget(new Position({"Row": GameState.backConverter[row],"Column":column+1}))) {
-                    validTargets.push(new Position({"Row": GameState.backConverter[row],"Column":column+1})) ;
+                let pos:Position = new Position({"Row": GameState.backConverter[row],"Column":column+1});
+                pos.Display();
+                if (this.isValidTarget(pos)) {
+                    validTargets.push(pos) ;
                 }
             }
         }
