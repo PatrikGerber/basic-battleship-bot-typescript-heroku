@@ -24,7 +24,7 @@ export class MyBot {
     }
 
     private getRandomNextTarget(gamestate:GameState):{Row:string, Column:number}{
-        return gamestate.randomDraw().json();
+        return gamestate.randomDraw().structure();
     }
 }
 

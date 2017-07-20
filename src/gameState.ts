@@ -80,15 +80,15 @@ export class GameState{
     }
 
     public randomDraw():Position{
-        let validPositions:Array<Position> = [];
+        let validTargets:Array<Position> = [];
         for (let row:number = 0; row<10; row++){
             for (let column:number = 0; column<10; column++){
                 if (this.isValidTarget(new Position({"Row": GameState.backConverter[row],"Column":column+1}))) {
-                    validPositions.push(new Position({"Row": GameState.backConverter[row],"Column":column+1})) ;
+                    validTargets.push(new Position({"Row": GameState.backConverter[row],"Column":column+1})) ;
                 }
             }
         }
-        let rand:number = Math.random()*validPositions.length;
-        return validPositions[Math.floor(rand)];
+        let rand:number = Math.random()*validTargets.length;
+        return validTargets[Math.floor(rand)];
     }
 }
