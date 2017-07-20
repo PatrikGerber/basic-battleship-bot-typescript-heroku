@@ -1,8 +1,9 @@
+import {Position} from "./position"
+
 export class GameState{
     public ShipPositions:Array<any>;
     public MyShots:Array<any>;
     public OpponentsShots:Array<any>;
-    // public huntMode:boolean;
     public static converter:any = {
         "A":0, 
         "B":1, 
@@ -44,8 +45,6 @@ export class GameState{
 
     // reqBody is the request body, a json object
     constructor(reqBody:any){
-        // console.log("Constructor called with ");
-
         // A-J and 1-10
         this.ShipPositions = (reqBody.ShipPositions)?reqBody.ShipPositions:[];
         this.MyShots = (reqBody.MyShots)?reqBody.MyShots:[];
@@ -83,24 +82,29 @@ export class GameState{
 
     //  returns true iff this.board has 0 at position (also checks if position is on the board)
     // takes zero indexed position
-    public isValidTarget(row:number, column:number):boolean{
-        // console.log("got here too2");
-        if ((((row<0) || (row>9)) || (column <0)) || (column>9)) {
-            return false;
-        }
-        return (this.board[row][column]==0);
-    }
-
-    public randomDraw():{"Row":string, "Column":number}{
-        let freeCells:Array<{"Row":string, "Column":number}> = [];
-        for (let row:number = 0; row<10; row++){
-            for (let column:number = 0; column<10; column++){
-                if (this.isValidTarget(row,column)){
-                    freeCells.push({"Row":GameState.backConverter[row], "Column":column+1});
+    public isValidTarget(position:Position):boolean{
+        if (position.row >= 0){
+            if (position.row <10){
+                if (position.column >= 0){
+                    if (position.column <10){
+                        return (this.board[position.row][position.column]==0);
+                    }
                 }
             }
         }
-        let rand:number = Math.random()*freeCells.length;
-        return freeCells[Math.floor(rand)];
+        return false;
+    }
+
+    public randomDraw():Position{
+        let validPositions:Array<Position> = [];
+        for (let row:number = 0; row<10; row++){
+            for (let column:number = 0; column<10; column++){
+                if (this.isValidTarget(new Position({"Row": GameState.backConverter[row],"Column":column+1}))){
+                    validPositions.push(new Position({"Row": GameState.backConverter[row],"Column":column+1});
+                }
+            }
+        }
+        let rand:number = Math.random()*validPositions.length;
+        return validPositions[Math.floor(rand)];
     }
 }

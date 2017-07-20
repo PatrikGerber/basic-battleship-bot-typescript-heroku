@@ -1,4 +1,5 @@
 import {GameState} from "./gameState"
+import {Position} from "./position"
 
 export class MyBot {
     public getShipPositions() {
@@ -15,49 +16,28 @@ export class MyBot {
     public selectTarget(gamestate:GameState) {
         gamestate.display();
 
-        // Original code, in case something breaks
-        // var previousShot = gamestate.MyShots && gamestate.MyShots[gamestate.MyShots.length-1];
-        // if(previousShot) {
-        //     return this.getNextTarget(previousShot.Position);
-        // }
-
         let previousShot = (gamestate.MyShots.length != 0)?gamestate.MyShots[gamestate.MyShots.length-1].Position:null;
         if(previousShot) {
-            if (gamestate.huntHitCount()){
-                let answer = this.huntNextTarget(gamestate, gamestate.huntHitCount());
-
-                // console.log("We're shooting at: ")
-                // console.log(answer);
-                // console.log();
-
-                return answer;
-            }
-            // console.log("IM finally not hunting!!!!!!!!!!!!");
-            let answer = this.getRandomNextTarget(gamestate);
-            // if (answer == gamestate.MyShots[gamestate.MyShots.length-1].Position)  console.log("Watch out, shootin same place again!");
-            console.log("We're shooting at: ")
-            console.log(answer);
-            console.log();
-            return answer;
+            // if (gamestate.huntHitCount()){
+            //     let answer = this.huntNextTarget(gamestate, gamestate.huntHitCount());
+            //     return answer;
+            // }
+            return this.getRandomNextTarget(gamestate);
         }
-        console.log("_______________________________________________________________________");
         return { Row: "E", Column: 5 };
     }
 
     private getRandomNextTarget(gamestate:GameState):{Row:string, Column:number}{
-        return gamestate.randomDraw();
+        return gamestate.randomDraw().json();
     }
 
     public huntNextTarget(gamestate:GameState, huntHitCount:number):{"Row":string, "Column":number}{
         if (huntHitCount == 1){
             let hitPosition:{"Row":string, "Column":number};
-            // console.log("I'm hunting");
             let pos:number;
             for (let i:number = 1; i <= Math.min(gamestate.MyShots.length,4); i++){
-                // console.log("Got here");
                 if (gamestate.MyShots[gamestate.MyShots.length-i].WasHit){
                     pos = i;
-                    // hitPosition = gamestate.MyShots[gamestate.MyShots.length-i].Position;
                     break;
                 }
             }
@@ -65,9 +45,6 @@ export class MyBot {
             hitPosition = gamestate.MyShots[gamestate.MyShots.length-pos];
             let row:number = GameState.converter[hitPosition.Row]; // 0 indexed
             let column:number = hitPosition.Column-1; // 0 indexed
-
-            // console.log(gamestate.isValidTarget(row,column));
-            // console.log("_____________asdaskj___________")
 
             if (gamestate.isValidTarget(row, column+1)) {
                 console.log("Actually returning something")
@@ -86,29 +63,7 @@ export class MyBot {
                 return {"Row":GameState.backConverter[row-1], "Column":column+1};
             }
         }
-        // console.log("Actually returning something")
         return this.getRandomNextTarget(gamestate);
     }
-
-    // Original code in case something breaks
-    // private getNextTarget(position) {
-    //     let column = this.getNextColumn(position.Column);
-    //     let row = column === 1 ? this.getNextRow(position.Row) : position.Row;
-    //     return { Row: row, Column: column }
-    // }
-
-    // Original code, in case something breaks
-    // private getNextRow(row) {
-    //     let newRow = row.charCodeAt(0) + 1;
-    //     if(newRow > 'J'.charCodeAt(0)) {
-    //         return 'A';
-    //     }
-    //     return String.fromCharCode(newRow);
-    // }
-
-    // Original code, in case something breaks    
-    // private getNextColumn(column) {
-    //     return column % 10 + 1;
-    // }
 }
 
