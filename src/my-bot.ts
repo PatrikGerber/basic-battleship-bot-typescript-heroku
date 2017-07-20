@@ -9,8 +9,9 @@ export class MyBot {
         ]
     }
 
-    // gamestate is the body of the post request
+    // gamestate is the body of the post request i.e. req.body
     public selectTarget(gamestate) {
+        console.log("Is this working??????????????///////////??????????");
         var previousShot = gamestate.MyShots && gamestate.MyShots[gamestate.MyShots.length-1];
         if(previousShot) {
             return this.getNextTarget(previousShot.Position);
@@ -18,6 +19,7 @@ export class MyBot {
         return { Row: "A", Column: 1 };  
     }
 
+    // position is the position of our previous shot
     private getNextTarget(position) {
         var column = this.getNextColumn(position.Column);
         var row = column === 1 ? this.getNextRow(position.Row) : position.Row;
