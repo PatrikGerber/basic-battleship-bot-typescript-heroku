@@ -64,4 +64,8 @@ export class GameState{
         console.log(this.board);
         console.log();
     }
+
+    public inHuntMode():boolean{
+        return false;
+    }
 }

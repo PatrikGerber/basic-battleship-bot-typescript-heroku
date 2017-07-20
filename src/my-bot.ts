@@ -28,13 +28,16 @@ export class MyBot {
 
         let previousShot = (gamestate.MyShots.length != 0)?gamestate.MyShots[gamestate.MyShots.length-1].Position:null;
         if(previousShot) {
-            return this.getNextTarget(gamestate);
+            if (gamestate.inHuntMode()){
+                
+            }
+            return this.getRandomNextTarget(gamestate);
         }
         return { Row: "E", Column: 5 };
     }
 
     // position = {Row: char, Column:number} is the position of our previous shot
-    private getNextTarget(gamestate:GameState):{Row:string, Column:number}{
+    private getRandomNextTarget(gamestate:GameState):{Row:string, Column:number}{
         let found = false;
         let row:number;
         let column:number;
