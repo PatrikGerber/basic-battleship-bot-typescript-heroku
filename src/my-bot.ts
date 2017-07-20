@@ -80,7 +80,7 @@ export class MyBot {
             // if (gamestate.isValidTarget(row-1, column)) {
             //     // console.log("Actually returning something")
             //     return {"Row":GameState.backConverter[row-1], "Column":column+1};
-            }
+        //     }
         }
         // console.log("Actually returning something")
         return this.getRandomNextTarget(gamestate);
