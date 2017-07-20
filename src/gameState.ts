@@ -46,11 +46,10 @@ export class GameState{
     // reqBody is the request body, a json object
     constructor(reqBody:any){
         // A-J and 1-10
-        this.ShipPositions = (reqBody.ShipPositions)?reqBody.ShipPositions:[];
-        this.MyShots = (reqBody.MyShots)?reqBody.MyShots:[];
-        this.OpponentsShots = (reqBody.OpponentsShots)?reqBody.OpponentsShots:[];
+        this.ShipPositions = (reqBody.ShipPositions)?(reqBody.ShipPositions):[];
+        this.MyShots = (reqBody.MyShots)?(reqBody.MyShots):[];
+        this.OpponentsShots = (reqBody.OpponentsShots)?(reqBody.OpponentsShots):[];
         if (this.MyShots){
-            // console.log("length of MyShots: ", this.MyShots.length);
             for (let i:number = 0; i<this.MyShots.length; i++){
                 let row:number = GameState.converter[this.MyShots[i].Position.Row];
                 let column:number = this.MyShots[i].Position.Column - 1
@@ -63,21 +62,6 @@ export class GameState{
         console.log();
         console.log(this.board);
         console.log();
-    }
-
-    // This is only called with MyShots defined
-    // returns true iff at least one of last 4 shots was a hit with the hit not being on a ship that already sunk
-    public huntHitCount():number{
-        let ans:number = 0;
-        for (let i:number = 1; i<= Math.min(this.MyShots.length,4); i++){
-            let shot_i:{Position:{"Row":string, "Column":number}, WasHit:boolean} = this.MyShots[this.MyShots.length-i]
-            let row:number = GameState.converter[shot_i.Position.Row];
-            let column:number = shot_i.Position.Column;
-            if ((shot_i.WasHit == true) && (this.board[row][column] != 2)){
-                ans++;
-            }
-        }
-        return ans;
     }
 
     //  returns true iff this.board has 0 at position (also checks if position is on the board)
