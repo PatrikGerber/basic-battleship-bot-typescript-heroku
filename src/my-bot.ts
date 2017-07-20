@@ -23,16 +23,16 @@ export class MyBot {
 
         let previousShot = (gamestate.MyShots.length != 0)?gamestate.MyShots[gamestate.MyShots.length-1].Position:null;
         if(previousShot) {
-            // if (gamestate.huntHitCount()){
-            //     let answer = this.huntNextTarget(gamestate, gamestate.huntHitCount());
+            if (gamestate.huntHitCount()){
+                let answer = this.huntNextTarget(gamestate, gamestate.huntHitCount());
 
-            //     // console.log("We're shooting at: ")
-            //     // console.log(answer);
-            //     // console.log();
+                // console.log("We're shooting at: ")
+                // console.log(answer);
+                // console.log();
 
 
-            //     return answer;
-            // }
+                return answer;
+            }
             let answer = this.getRandomNextTarget(gamestate);
             // if (answer == gamestate.MyShots[gamestate.MyShots.length-1].Position)  console.log("Watch out, shootin same place again!");
             // console.log("We're shooting at: ")
@@ -60,6 +60,7 @@ export class MyBot {
             }
             let row = GameState.converter[hitPosition.Row]; // 0 indexed
             let column = hitPosition.Column-1; // 0 indexed
+
             if (gamestate.isValidTarget({"Row":row, "Column":column+1})) {
                 return {"Row":GameState.backConverter[row], "Column":column+1};
             }
@@ -69,8 +70,8 @@ export class MyBot {
             if (gamestate.isValidTarget({"Row":row+1, "Column":column})) {
                 return {"Row":GameState.backConverter[row+1], "Column":column};
             }
-            if (gamestate.isValidTarget({"Row":row-1, "Column":column+1})) {
-                return {"Row":GameState.backConverter[row-1], "Column":column+1};
+            if (gamestate.isValidTarget({"Row":row-1, "Column":column})) {
+                return {"Row":GameState.backConverter[row-1], "Column":column};
             }
         }
         return this.getRandomNextTarget(gamestate);
