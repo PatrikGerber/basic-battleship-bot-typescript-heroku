@@ -26,7 +26,7 @@ export class MyBot {
         //     return this.getNextTarget(previousShot.Position);
         // }
 
-        let previousShot = gamestate.MyShots?gamestate.MyShots[gamestate.MyShots.length-1].Position:null;
+        let previousShot = (gamestate.MyShots.length != 0)?gamestate.MyShots[gamestate.MyShots.length-1].Position:null;
         if(previousShot) {
             return this.getNextTarget(previousShot);
         }
