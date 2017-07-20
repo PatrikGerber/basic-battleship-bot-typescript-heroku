@@ -17,14 +17,20 @@ export class MyBot {
         // console.log("gamestate.MyShots[0].Position: ....");
         // console.log(gamestate.MyShots[0] && gamestate.MyShots[0].Position);
         // console.log();
-        let previousShot = gamestate.MyShots?gamestate.MyShots[gamestate.MyShots.length-1].Position:null;
+        
+        var previousShot = gamestate.MyShots && gamestate.MyShots[gamestate.MyShots.length-1];
         if(previousShot) {
-            console.log()
-            console.log("Getnexttarget: ");
-            console.log(this.getNextTarget(previousShot));
-            console.log();
-            return this.getNextTarget(previousShot);
+            return this.getNextTarget(previousShot.Position);
         }
+
+        // let previousShot = gamestate.MyShots?gamestate.MyShots[gamestate.MyShots.length-1].Position:null;
+        // if(previousShot) {
+        //     console.log()
+        //     console.log("Getnexttarget: ");
+        //     console.log(this.getNextTarget(previousShot));
+        //     console.log();
+        //     return this.getNextTarget(previousShot);
+        // }
         return { Row: "E", Column: 5 };
     }
 
