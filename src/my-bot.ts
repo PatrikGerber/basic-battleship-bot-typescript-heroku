@@ -50,6 +50,7 @@ export class MyBot {
     }
 
     public huntNextTarget(gamestate:GameState, huntHitCount:number):{"Row":string, "Column":number}{
+        console.log("I'm hunting");
         if (huntHitCount == 1){
             let hitPosition:{"Row":string, "Column":number};
             for (let i:number = 1; i<= Math.min(gamestate.MyShots.length,4); i++){
@@ -58,22 +59,28 @@ export class MyBot {
                     break;
                 }
             }
+
             let row = GameState.converter[hitPosition.Row]; // 0 indexed
             let column = hitPosition.Column-1; // 0 indexed
 
             if (gamestate.isValidTarget({"Row":row, "Column":column+1})) {
+                console.log("Actually returning something")
                 return {"Row":GameState.backConverter[row], "Column":column+1};
             }
             if (gamestate.isValidTarget({"Row":row, "Column":column-1})) {
+                console.log("Actually returning something")
                 return {"Row":GameState.backConverter[row], "Column":column-1};
             }
             if (gamestate.isValidTarget({"Row":row+1, "Column":column})) {
+                console.log("Actually returning something")
                 return {"Row":GameState.backConverter[row+1], "Column":column};
             }
             if (gamestate.isValidTarget({"Row":row-1, "Column":column})) {
+                console.log("Actually returning something")
                 return {"Row":GameState.backConverter[row-1], "Column":column};
             }
         }
+        console.log("Actually returning something")
         return this.getRandomNextTarget(gamestate);
     }
 
