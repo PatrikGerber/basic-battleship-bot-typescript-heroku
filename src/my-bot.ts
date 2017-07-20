@@ -16,10 +16,10 @@ export class MyBot {
     public selectTarget(gamestate:GameState) {
         gamestate.display();
 
-        let previousShot = (gamestate.MyShots.length != 0)?gamestate.MyShots[gamestate.MyShots.length-1].Position:null;
-        // if(previousShot) {
-        //     return this.getRandomNextTarget(gamestate);
-        // }
+        let previousShot = (gamestate.MyShots.length != 0)?(gamestate.MyShots[gamestate.MyShots.length-1].Position):null;
+        if(previousShot) {
+            return this.getRandomNextTarget(gamestate);
+        }
         return { Row: "E", Column: 5 };
     }
 
