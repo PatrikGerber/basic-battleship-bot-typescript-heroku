@@ -82,8 +82,8 @@ export class GameState{
     public inHuntMode():number{
         let count:number = 0;
         for (let i:number = 1; i<=Math.min(this.MyShots.length,4); i++){
-            let pos:Position = new Position(this.MyShots[this.MyShots.length-i]);
-            if (this.isValidTarget(pos)){
+            let shot:{"Position":{"Row":string, "Column":number}, "WasHit":boolean} = this.MyShots[this.MyShots.length-i];
+            if (shot.WasHit){
                 count++;
             }
         }
