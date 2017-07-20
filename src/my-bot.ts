@@ -14,11 +14,6 @@ export class MyBot {
     // gamestate is the body of the post request i.e. req.body
     public selectTarget(gamestate:GameState) {
         gamestate.display();
-        // console.log();
-        // console.log("gamestate.MyShots[0].Position: ....");
-        // console.log(gamestate.MyShots[0] && gamestate.MyShots[0].Position);
-        // console.log();
-
 
         // Original code, in case something breaks
         // var previousShot = gamestate.MyShots && gamestate.MyShots[gamestate.MyShots.length-1];
@@ -28,8 +23,8 @@ export class MyBot {
 
         let previousShot = (gamestate.MyShots.length != 0)?gamestate.MyShots[gamestate.MyShots.length-1].Position:null;
         if(previousShot) {
-            if (gamestate.inHuntMode()){
-                
+            if (gamestate.huntHitCount()){
+                return this.huntNextTarget(gamestate, gamestate.huntHitCount());
             }
             return this.getRandomNextTarget(gamestate);
         }
@@ -44,11 +39,35 @@ export class MyBot {
         while (!found){
             row = Math.floor(Math.random()*10);
             column = Math.floor(Math.random()*10);
-            if (!gamestate.board[row][column]){
-                found = true;
+            if (gamestate.isValidTarget({"Row":row, "Column":column})) {
+                return {"Row":GameState.backConverter[row], "Column":column+1};
             }
         }
-        return {"Row":GameState.backConverter[row], "Column":column+1};
+    }
+
+    public huntNextTarget(gamestate:GameState, huntHitCount:number):{"Row":string, "Column":number}{
+        if (huntHitCount == 1){
+            let hitPosition:{"Row":string, "Column":number};
+            for (let i:number = 1; i<= Math.min(gamestate.MyShots.length,4); i++){
+                if (gamestate.MyShots[gamestate.MyShots.length-i].WasHit){
+                    hitPosition = gamestate.MyShots[gamestate.MyShots.length-i].Position;
+                    break;
+                }
+            }
+            if (gamestate.isValidTarget({"Row":GameState.converter[hitPosition.Row], "Column":hitPosition.Column+1})) {
+                return {"Row":hitPosition.Row, "Column":hitPosition.Column+1};
+            }
+            if (gamestate.isValidTarget({"Row":GameState.converter[hitPosition.Row], "Column":hitPosition.Column-1})) {
+                return {"Row":hitPosition.Row, "Column":hitPosition.Column-1}
+            }
+            if (gamestate.isValidTarget({"Row":GameState.converter[hitPosition.Row]+1, "Column":hitPosition.Column})) {
+                return {"Row":GameState.backConverter[GameState.converter[hitPosition.Row]+1], "Column":hitPosition.Column}
+            }
+            if (gamestate.isValidTarget({"Row":GameState.converter[hitPosition.Row], "Column":hitPosition.Column-1})) {
+                return {"Row":GameState.backConverter[GameState.converter[hitPosition.Row]-1], "Column":hitPosition.Column+1}
+            }
+        }
+        return this.getRandomNextTarget(gamestate);
     }
 
     // Original code in case something breaks

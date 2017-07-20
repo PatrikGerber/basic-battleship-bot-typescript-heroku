@@ -28,7 +28,7 @@ export class GameState{
         9:"J"
     };
 
-    // 0 means unchecked, 1 means hit, -1 means nothing there
+    // 0 means unchecked, 1 means hit,2 means sunk, -1 means nothing there
     public board:number[][] = [
         [0,0,0,0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,0,0,0],
@@ -44,7 +44,7 @@ export class GameState{
 
     // reqBody is the request body, a json object
     constructor(reqBody:any){
-        console.log("Constructor called with ");
+        // console.log("Constructor called with ");
 
         this.ShipPositions = (reqBody.ShipPositions)?reqBody.ShipPositions:[];
         this.MyShots = (reqBody.MyShots)?reqBody.MyShots:[];
@@ -65,7 +65,26 @@ export class GameState{
         console.log();
     }
 
-    public inHuntMode():boolean{
-        return false;
+    // This is only called with MyShots defined
+    // returns true iff at least one of last 4 shots was a hit with the hit not being on a ship that already sunk
+    public huntHitCount():number{
+        let ans:number = 0;
+        for (let i:number = 1; i<= Math.min(this.MyShots.length,4); i++){
+            let shot_i:{Position:{"Row":string, "Column":number}, WasHit:boolean} = this.MyShots[this.MyShots.length-i]
+            let row:number = GameState.converter[shot_i.Position.Row];
+            let column:number = shot_i.Position.Column;
+            if ((shot_i.WasHit == true) && (this.board[row][column] != 2)){
+                ans++;
+            }
+        }
+        return ans;
+    }
+
+    //  returns true iff this.board has 0 at position (also checks if position is on the board)
+    public isValidTarget(position: {"Row":number, "Column":number}):boolean{
+        let row:number = position.Row;
+        let column:number = position.Column;
+        if (row<0 || row>9 || column <0 || column>9) return false;
+        return !this.board[row][column];
     }
 }
