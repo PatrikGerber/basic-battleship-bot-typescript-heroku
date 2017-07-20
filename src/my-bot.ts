@@ -63,8 +63,8 @@ export class MyBot {
             }
 
             hitPosition = gamestate.MyShots[gamestate.MyShots.length-pos];
-            console.log("got here too")
             let row = GameState.converter[hitPosition.Row]; // 0 indexed
+            console.log("got here too")
             let column = hitPosition.Column-1; // 0 indexed
 
             if (gamestate.isValidTarget(row, column+1)) {
