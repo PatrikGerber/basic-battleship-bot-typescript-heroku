@@ -79,6 +79,17 @@ export class GameState{
         return false;
     }
 
+    public inHuntMode():number{
+        let count:number = 0;
+        for (let i:number = 1; i<=Math.min(this.MyShots.length,4); i++){
+            let pos:Position = new Position(this.MyShots[this.MyShots.length-i]);
+            if (this.isValidTarget(pos)){
+                count++;
+            }
+        }
+        return count;
+    }
+
     public randomDraw():Position{
         let validTargets:Array<Position> = [];
         for (let row:number = 0; row<10; row++){
