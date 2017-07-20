@@ -1,3 +1,5 @@
+import {GameState} from "./gameState"
+
 export class MyBot {
     public getShipPositions() {
         return [
@@ -10,27 +12,27 @@ export class MyBot {
     }
 
     // gamestate is the body of the post request i.e. req.body
-    public selectTarget(gamestate) {
-        console.log();
-        console.log("gamestate.MyShots[0].Position: ....");
-        console.log(gamestate.MyShots[0] && gamestate.MyShots[0].Position);
-        console.log();
-        var previousShot = gamestate.MyShots && gamestate.MyShots[gamestate.MyShots.length-1];
+    public selectTarget(gamestate:GameState) {
+        // console.log();
+        // console.log("gamestate.MyShots[0].Position: ....");
+        // console.log(gamestate.MyShots[0] && gamestate.MyShots[0].Position);
+        // console.log();
+        let previousShot = gamestate.MyShots?gamestate.MyShots[gamestate.MyShots.length-1].Position:null;
         if(previousShot) {
             return this.getNextTarget(previousShot.Position);
         }
-        return { Row: "A", Column: 1 };  
+        return { Row: "E", Column: 5 };  
     }
 
     // position is the position of our previous shot
     private getNextTarget(position) {
-        var column = this.getNextColumn(position.Column);
-        var row = column === 1 ? this.getNextRow(position.Row) : position.Row;
+        let column = this.getNextColumn(position.Column);
+        let row = column === 1 ? this.getNextRow(position.Row) : position.Row;
         return { Row: row, Column: column }
     }
 
     private getNextRow(row) {
-        var newRow = row.charCodeAt(0) + 1;
+        let newRow = row.charCodeAt(0) + 1;
         if(newRow > 'J'.charCodeAt(0)) {
             return 'A';
         }
