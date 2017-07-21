@@ -108,7 +108,6 @@ export class GameState{
                         let shipLength:number = column-startColumn;
                         this.remainingShips = this.remove(shipLength);
                         this.sink(row,startColumn,row,column-1);
-                        this.display();
                     }
                 }
             }
@@ -125,7 +124,6 @@ export class GameState{
                         let shipLength:number = row-startRow;
                         this.remainingShips = this.remove(shipLength);
                         this.sink(startRow,column,row-1,column);
-                        this.display();
                     }
                 }
             }
