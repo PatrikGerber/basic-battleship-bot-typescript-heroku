@@ -18,12 +18,9 @@ export class Probability{
                     }
                 }
                 else {
-                    // console.log("row, column: ", pos.row, " ", pos.column);
-                    // console.log("isValidTarget: ", gamestate.isValidTarget(pos));
-                    // console.log("(row-column)%grid ", (pos.row-pos.column))
                     if ((gamestate.isValidTarget(pos)) && (((pos.row-pos.column )%grid+grid)%grid == shift)) {
                         // console.log("Looking at ", pos, " with distribution frequency ", distribution[pos.row][pos.column]);
-                        for (let frequency:number = 0; frequency < distribution[pos.row][pos.column]; frequency++){
+                        for (let frequency:number = 0; frequency < Math.floor(Math.pow(1.1,distribution[pos.row][pos.column])*distribution[pos.row][pos.column]); frequency++){
                             validTargets.push(pos) ;
                         }
                     }

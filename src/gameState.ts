@@ -149,6 +149,10 @@ export class GameState{
         return ans;
     }
 
+    public eliminateByShipLength():void{
+        
+    }
+
     public eliminateNeighboursOfSunken():void{
         let x:number[] = [1,1,1,0,-1,-1,-1,0];
         let y:number[] = [-1,0,1,1,1,0,-1,-1];
