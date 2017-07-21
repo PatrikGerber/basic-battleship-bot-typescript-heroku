@@ -45,11 +45,11 @@ export class MyBot {
         gamestate.eliminateNeighboursOfSunken();
         gamestate.eliminateSunkenShips();    
         gamestate.eliminateNeighboursOfSunken();  
-        console.log();
-        console.log("Remaining ships are: ", gamestate.remainingShips);
-        console.log("The distribution: ");
-        console.log(Probability.getDistribution(gamestate));
-        console.log();          
+        // console.log();
+        // console.log("Remaining ships are: ", gamestate.remainingShips);
+        // console.log("The distribution: ");
+        // console.log(Probability.getDistribution(gamestate));
+        // console.log();          
         let hitPosition:Position = gamestate.getHitPosition();
         if (hitPosition){
             let neightbourHitPosition:Position = gamestate.getNeighbourHitPosition(hitPosition);
