@@ -52,9 +52,9 @@ export class MyBot {
         // console.log();          
         let hitPosition:Position = gamestate.getHitPosition();
         if (hitPosition){
-            let neightbourHitPosition:Position = gamestate.getNeighbourHitPosition(hitPosition);
-            if (neightbourHitPosition){
-                let answer = gamestate.findTargetAlongLine(hitPosition, neightbourHitPosition)
+            let neighbourHitPosition:Position = gamestate.getNeighbourHitPosition(hitPosition);
+            if (neighbourHitPosition){
+                let answer = gamestate.findTargetAlongLine(hitPosition, neighbourHitPosition)
                 return answer;
             }
             else{

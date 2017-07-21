@@ -280,7 +280,7 @@ export class GameState{
     }
 
     public randomDraw(init:boolean = false):Position{
-        let validTargets:Array<Position> = Probability.grid(this, init);
+        let validTargets:Array<Position> = Probability.targetArray(this, init);
         // let validTargets:Array<Position> = [];
         // for (let row:number = 0; row<10; row++){
         //     for (let column:number = 0; column<10; column++){
@@ -290,6 +290,9 @@ export class GameState{
         //         }
         //     }
         // }
+        console.log("validTargets at randomdraw: ");
+        console.log(validTargets);
+        console.log();
         let rand:number = Math.random()*validTargets.length;
         return validTargets[Math.floor(rand)];
     }
