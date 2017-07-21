@@ -44,7 +44,8 @@ export class MyBot {
         gamestate.eliminateSunkenShips();
         gamestate.eliminateNeighboursOfSunken();
         gamestate.eliminateSunkenShips();    
-        gamestate.eliminateNeighboursOfSunken();            
+        gamestate.eliminateNeighboursOfSunken();  
+        console.log("Remaining ships are: ", gamestate.remainingShips);          
         let hitPosition:Position = gamestate.getHitPosition();
         if (hitPosition){
             let neightbourHitPosition:Position = gamestate.getNeighbourHitPosition(hitPosition);
