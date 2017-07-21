@@ -20,7 +20,7 @@ export class MyBot {
 
     // gamestate is the body of the post request i.e. req.body
     public selectTarget(gamestate:GameState) {
-        gamestate.display();
+        // gamestate.display();
 
         let previousShot = (gamestate.MyShots.length != 0)?(gamestate.MyShots[gamestate.MyShots.length-1].Position):null;
         if(previousShot) {
@@ -50,17 +50,17 @@ export class MyBot {
             let neightbourHitPosition:Position = gamestate.getNeighbourHitPosition(hitPosition);
             if (neightbourHitPosition){
                 let answer = gamestate.findTargetAlongLine(hitPosition, neightbourHitPosition)
-                console.log("lineMake the move ", answer)
+                // console.log("lineMake the move ", answer)
                 return answer;
             }
             else{
                 let answer = gamestate.targetNeighbours(hitPosition);
-                console.log("neighbMake the move ", answer);
+                // console.log("neighbMake the move ", answer);
                 return answer;
             }
         }
         let answer = this.getRandomNextTarget(gamestate)
-        console.log("randMake the move ", answer)
+        // console.log("randMake the move ", answer)
         return answer;
     }
 

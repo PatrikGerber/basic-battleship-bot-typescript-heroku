@@ -108,6 +108,12 @@ export class GameState{
                     let sunken:boolean = this.isSunken(row,startColumn,row,column-1);
                     //console.log("sunken = ", sunken)
                     if (sunken){
+                        console.log("just sunk a ship");
+                        this.display();
+                        console.log(this.remainingShips);
+                        console.log();
+                        let shipLength:number = Math.abs(startColumn-column+1);
+                        this.remainingShips = this.remainingShips.splice(this.remainingShips.indexOf(shipLength),1);
                         this.sink(row,startColumn,row,column-1);
                     }
                 }
@@ -122,6 +128,8 @@ export class GameState{
                     }
                     let sunken:boolean = this.isSunken(startRow,column,row-1,column);
                     if (sunken){
+                        let shipLength:number = Math.abs(startRow-row+1);
+                        this.remainingShips = this.remainingShips.splice(this.remainingShips.indexOf(shipLength),1);
                         this.sink(startRow,column,row-1,column);
                     }
                 }
@@ -220,7 +228,7 @@ export class GameState{
     }
 
     public findTargetAlongLine(hitPosition:Position, neighbourHitPosition:Position):{"Row":string, "Column":number}{
-        console.log("FindTargetAlongLine() called with ", hitPosition, neighbourHitPosition);
+        // console.log("FindTargetAlongLine() called with ", hitPosition, neighbourHitPosition);
         if (hitPosition.row == neighbourHitPosition.row){
             let endColumn:number = neighbourHitPosition.column;
             while ((endColumn<10) && (this.board[hitPosition.row][endColumn] == 1)){
@@ -229,7 +237,7 @@ export class GameState{
             //console.log("Returning: ", {"Row":GameState.numberToLetter[hitPosition.row], "Column":endColumn+1})
             if (endColumn<10){
                 if (this.board[hitPosition.row][endColumn]==0){
-                    console.log("Returning: ", {"Row":GameState.numberToLetter[hitPosition.row], "Column":endColumn+1})
+                    // console.log("Returning: ", {"Row":GameState.numberToLetter[hitPosition.row], "Column":endColumn+1})
                     return {"Row":GameState.numberToLetter[hitPosition.row], "Column":endColumn+1};
                 }
             }
@@ -240,7 +248,7 @@ export class GameState{
             }
             if (endColumn>=0){
                 if (this.board[hitPosition.row][endColumn]==0){
-                    console.log("Returning: ", {"Row":GameState.numberToLetter[hitPosition.row], "Column":endColumn+1})
+                    // console.log("Returning: ", {"Row":GameState.numberToLetter[hitPosition.row], "Column":endColumn+1})
                     return {"Row":GameState.numberToLetter[hitPosition.row], "Column":endColumn+1};
                 }
             }
@@ -252,7 +260,7 @@ export class GameState{
             }
             if (endRow<10){
                 if (this.board[endRow][hitPosition.column] == 0){
-                    console.log("Returning: ", {"Row":GameState.numberToLetter[endRow], "Column":hitPosition.column+1})
+                    // console.log("Returning: ", {"Row":GameState.numberToLetter[endRow], "Column":hitPosition.column+1})
                     return {"Row":GameState.numberToLetter[endRow], "Column":hitPosition.column+1};
                 }
             }
@@ -264,7 +272,7 @@ export class GameState{
             //console.log("Returning: ", {"Row":GameState.numberToLetter[endRow], "Column":hitPosition.column+1})
             if (endRow>=0){
                 if (this.board[endRow][hitPosition.column] == 0){
-                    console.log("Returning: ", {"Row":GameState.numberToLetter[endRow], "Column":hitPosition.column+1})
+                    // console.log("Returning: ", {"Row":GameState.numberToLetter[endRow], "Column":hitPosition.column+1})
                     return {"Row":GameState.numberToLetter[endRow], "Column":hitPosition.column+1};
                 }
             }

@@ -44,7 +44,14 @@ export class Probability{
         return null;
     }
     public static countWays(row:number, column:number, gamestate:GameState):number{
-        
+        let ans:number = 0;
+        for (let shipLength of gamestate.remainingShips){
+            let rowDirections:number[] = [1,-1,0,0];
+            let columnDirections:number[] = [0,0,1,-1];
+            for (let i:number = 0; i<4; i++){
+                
+            } 
+        }
         return 0;
     }
     public static randomShipPositions():Array<{ StartingSquare: { Row:string, Column:number }, EndingSquare : { Row:string , Column:number } }>{
