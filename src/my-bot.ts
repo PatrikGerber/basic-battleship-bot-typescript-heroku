@@ -4,10 +4,10 @@ import {Probability} from "./probability"
 
 export class MyBot {
     public getShipPositions() {
-        // try {
-        //     return Probability.randomShipPositions();
-        // }
-        // catch(error){
+        try {
+            return Probability.randomShipPositions();
+        }
+        catch(error){
             return [
                 { StartingSquare: { Row: "A", Column: 1 }, EndingSquare : { Row: "A", Column: 5 } },
                 { StartingSquare: { Row: "C", Column: 1 }, EndingSquare : { Row: "C", Column: 4 } },
@@ -15,7 +15,7 @@ export class MyBot {
                 { StartingSquare: { Row: "G", Column: 1 }, EndingSquare : { Row: "G", Column: 3 } },
                 { StartingSquare: { Row: "I", Column: 1 }, EndingSquare : { Row: "I", Column: 2 } },
             ]
-        // }
+        }
     }
 
     // gamestate is the body of the post request i.e. req.body
