@@ -46,7 +46,6 @@ export class MyBot {
         gamestate.eliminateNeighboursOfSunken();
         gamestate.eliminateSunkenShips();    
         gamestate.eliminateNeighboursOfSunken();  
-        gamestate.eliminateByShipLength();
         this.counter++;
         console.log("Round ", this.counter, ", remainingships:");
         console.log(gamestate.remainingShips);

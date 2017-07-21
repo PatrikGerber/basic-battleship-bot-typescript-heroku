@@ -149,10 +149,6 @@ export class GameState{
         return ans;
     }
 
-    public eliminateByShipLength():void{
-        
-    }
-
     public eliminateNeighboursOfSunken():void{
         let x:number[] = [1,1,1,0,-1,-1,-1,0];
         let y:number[] = [-1,0,1,1,1,0,-1,-1];
@@ -184,6 +180,9 @@ export class GameState{
             return false;
         }
         if (startRow!=endRow){
+            if (Math.abs(endRow - startRow)+1 == this.remainingShips[this.remainingShips.length-1]){
+                return true;
+            }
             if ((startRow == 0) || (this.board[startRow-1][startColumn]==-1)){
                 if ((endRow == 9) || (this.board[endRow+1][startColumn]==-1)){
                     return true;
@@ -191,6 +190,9 @@ export class GameState{
             }
         }
         else {
+            if (Math.abs(endColumn - startColumn)+1 == this.remainingShips[this.remainingShips.length-1]){
+                return true;
+            }
             if ((startColumn == 0) || (this.board[startRow][startColumn-1]==-1)){
                 if ((endColumn == 9) || (this.board[startRow][endColumn+1]==-1)){
                     return true;
