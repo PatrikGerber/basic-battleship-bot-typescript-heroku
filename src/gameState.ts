@@ -98,23 +98,20 @@ export class GameState{
     public eliminateSunkenShips():void{
         for (let row:number =0; row<10; row++){
             for (let column:number = 0; column<10; column++){
-                //console.log("Im here")
                 let startColumn:number = column;
                 if (this.board[row][column]==1){
                     while ((column<10) && (this.board[row][column]==1)){
-                        //console.log("we have hits at row ",row," column ",column);
                         column++;
                     }
                     let sunken:boolean = this.isSunken(row,startColumn,row,column-1);
-                    //console.log("sunken = ", sunken)
                     if (sunken){
-                        console.log("just sunk a ship");
-                        this.display();
-                        console.log(this.remainingShips);
-                        console.log();
                         let shipLength:number = Math.abs(startColumn-column+1);
                         this.remainingShips = this.remainingShips.splice(this.remainingShips.indexOf(shipLength),1);
                         this.sink(row,startColumn,row,column-1);
+                        console.log("just sunk a ship");
+                        this.display();
+                        console.log("Remaininships: ", this.remainingShips);
+                        console.log();
                     }
                 }
             }
@@ -131,6 +128,10 @@ export class GameState{
                         let shipLength:number = Math.abs(startRow-row+1);
                         this.remainingShips = this.remainingShips.splice(this.remainingShips.indexOf(shipLength),1);
                         this.sink(startRow,column,row-1,column);
+                        console.log("just sunk a ship");
+                        this.display();
+                        console.log("Remaininships: ", this.remainingShips);
+                        console.log();
                     }
                 }
             }
@@ -212,14 +213,12 @@ export class GameState{
     }
 
     public targetNeighbours(hitPosition:Position):{"Row":string, "Column":number}{
-        //console.log("Called with hitPosition: ", hitPosition);
         let x:number[] = [1,-1,0,0];
         let y:number[] = [0,0,1,-1];
         for (let i:number=0; i<4; i++){
             let dr:number = hitPosition.row+x[i];
             let dc:number = hitPosition.column+y[i];
             let pos:Position = new Position({"Row": GameState.numberToLetter[dr], "Column":dc+1});
-            //console.log("Currently considering position: ", pos);
             if (this.isValidTarget(pos)){
                 return pos.structure();
             }
@@ -228,16 +227,13 @@ export class GameState{
     }
 
     public findTargetAlongLine(hitPosition:Position, neighbourHitPosition:Position):{"Row":string, "Column":number}{
-        // console.log("FindTargetAlongLine() called with ", hitPosition, neighbourHitPosition);
         if (hitPosition.row == neighbourHitPosition.row){
             let endColumn:number = neighbourHitPosition.column;
             while ((endColumn<10) && (this.board[hitPosition.row][endColumn] == 1)){
                 endColumn++;
             }
-            //console.log("Returning: ", {"Row":GameState.numberToLetter[hitPosition.row], "Column":endColumn+1})
             if (endColumn<10){
                 if (this.board[hitPosition.row][endColumn]==0){
-                    // console.log("Returning: ", {"Row":GameState.numberToLetter[hitPosition.row], "Column":endColumn+1})
                     return {"Row":GameState.numberToLetter[hitPosition.row], "Column":endColumn+1};
                 }
             }
@@ -248,7 +244,6 @@ export class GameState{
             }
             if (endColumn>=0){
                 if (this.board[hitPosition.row][endColumn]==0){
-                    // console.log("Returning: ", {"Row":GameState.numberToLetter[hitPosition.row], "Column":endColumn+1})
                     return {"Row":GameState.numberToLetter[hitPosition.row], "Column":endColumn+1};
                 }
             }
@@ -260,7 +255,6 @@ export class GameState{
             }
             if (endRow<10){
                 if (this.board[endRow][hitPosition.column] == 0){
-                    // console.log("Returning: ", {"Row":GameState.numberToLetter[endRow], "Column":hitPosition.column+1})
                     return {"Row":GameState.numberToLetter[endRow], "Column":hitPosition.column+1};
                 }
             }
@@ -269,10 +263,8 @@ export class GameState{
             while ((endRow>=0) && (this.board[endRow][hitPosition.column] == 1)){
                 endRow--;
             }
-            //console.log("Returning: ", {"Row":GameState.numberToLetter[endRow], "Column":hitPosition.column+1})
             if (endRow>=0){
                 if (this.board[endRow][hitPosition.column] == 0){
-                    // console.log("Returning: ", {"Row":GameState.numberToLetter[endRow], "Column":hitPosition.column+1})
                     return {"Row":GameState.numberToLetter[endRow], "Column":hitPosition.column+1};
                 }
             }

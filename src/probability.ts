@@ -49,7 +49,7 @@ export class Probability{
             let rowDirections:number[] = [1,-1,0,0];
             let columnDirections:number[] = [0,0,1,-1];
             for (let i:number = 0; i<4; i++){
-                
+
             } 
         }
         return 0;
@@ -69,7 +69,6 @@ export class Probability{
             [0,0,0,0,0,0,0,0,0,0],
             [0,0,0,0,0,0,0,0,0,0],
         ]
-        // console.log("Im here 1");
         for (let len of ships){
             let gamestate:GameState = new GameState({});
             gamestate.board = board;
@@ -88,7 +87,6 @@ export class Probability{
                 let dc:number = columnDirections[direction];
 
                 let valid:boolean = true;
-                // console.log("Im here 2");
                 for (let i:number = 0; i<len; i++){
                     if (!gamestate.isValidTarget(new Position({"Row":GameState.numberToLetter[pos.row+i*dr], "Column":pos.column+1+i*dc}))){
                         valid = false;

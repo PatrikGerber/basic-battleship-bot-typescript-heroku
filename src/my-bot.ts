@@ -50,37 +50,16 @@ export class MyBot {
             let neightbourHitPosition:Position = gamestate.getNeighbourHitPosition(hitPosition);
             if (neightbourHitPosition){
                 let answer = gamestate.findTargetAlongLine(hitPosition, neightbourHitPosition)
-                // console.log("lineMake the move ", answer)
                 return answer;
             }
             else{
                 let answer = gamestate.targetNeighbours(hitPosition);
-                // console.log("neighbMake the move ", answer);
                 return answer;
             }
         }
         let answer = this.getRandomNextTarget(gamestate)
-        // console.log("randMake the move ", answer)
         return answer;
     }
-
-    // public huntTarget(gamestate:GameState, huntCount:number):Position{
-    //     if (huntCount == 1){
-    //         let hitPos:Position;
-    //         for (let i:number = 1; i<=Math.min(gamestate.MyShots.length,4); i++){
-    //             let position:Position = new Position(gamestate.MyShots[gamestate.MyShots.length-i].Position);
-    //             let shot:{"Position":{"Row":string, "Column":number}, "WasHit":boolean} = gamestate.MyShots[gamestate.MyShots.length-i];
-    //             if ((shot.WasHit) && (gamestate.board[position.row][position.column] != 2)){
-    //                 hitPos = new Position(shot.Position);
-    //                 break;
-    //             }
-    //         }
-    //         console.log("We had a hit at , just checking git");
-    //         hitPos.Display();
-    //         console.log();
-    //     }
-    //     return gamestate.randomDraw();
-    // }
 
     private getRandomNextTarget(gamestate:GameState):{Row:string, Column:number}{
         return gamestate.randomDraw().structure();
