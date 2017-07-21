@@ -80,18 +80,18 @@ export class GameState{
         return false;
     }
 
-    public inHuntMode():number{
-        let count:number = 0;
-        for (let i:number = 1; i<=Math.min(this.MyShots.length,4); i++){
-            let shot:{"Position":{"Row":string, "Column":number}, "WasHit":boolean} = this.MyShots[this.MyShots.length-i];
-            if (shot.WasHit){
-                count++;
-            }
-        }
-        return count;
-    }
+    // public inHuntMode():number{
+    //     let count:number = 0;
+    //     for (let i:number = 1; i<=Math.min(this.MyShots.length,4); i++){
+    //         let shot:{"Position":{"Row":string, "Column":number}, "WasHit":boolean} = this.MyShots[this.MyShots.length-i];
+    //         if (shot.WasHit){
+    //             count++;
+    //         }
+    //     }
+    //     return count;
+    // }
 
-    public findSunkenShips():void{
+    public eliminateSunkenShips():void{
         for (let row:number =0; row<10; row++){
             for (let column:number = 0; column<10; column++){
                 //console.log("Im here")
@@ -125,7 +125,7 @@ export class GameState{
         }
     }
 
-    public eliminateSunkenNeighbours():void{
+    public eliminateNeighboursOfSunken():void{
         let x:number[] = [1,1,1,0,-1,-1,-1,0];
         let y:number[] = [-1,0,1,1,1,0,-1,-1];
         for (let row:number = 0; row < 10; row++){
