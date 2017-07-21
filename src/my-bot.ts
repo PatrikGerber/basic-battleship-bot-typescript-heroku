@@ -32,11 +32,6 @@ export class MyBot {
                 console.log("________________________________ERROR___________________________");
                 return this.getRandomNextTarget(gamestate);
             }
-            // let huntCount:number = gamestate.inHuntMode();
-            // if (huntCount){
-            //     return this.huntTarget(gamestate, huntCount).structure();
-            // }
-            // return this.getRandomNextTarget(gamestate);
         }
         return { Row: "E", Column: 5 };
     }
@@ -48,12 +43,7 @@ export class MyBot {
         gamestate.eliminateNeighboursOfSunken();  
         this.counter++;
         console.log("Round ", this.counter, ", remainingships:");
-        console.log(gamestate.remainingShips);
-        // console.log();
-        // console.log("Remaining ships are: ", gamestate.remainingShips);
-        // console.log("The distribution: ");
-        // console.log(Probability.getDistribution(gamestate));
-        // console.log();          
+        console.log(gamestate.remainingShips);      
         let hitPosition:Position = gamestate.getHitPosition();
         if (hitPosition){
             let neighbourHitPosition:Position = gamestate.getNeighbourHitPosition(hitPosition);

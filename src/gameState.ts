@@ -301,18 +301,6 @@ export class GameState{
             grid = 2;
         }
         let validTargets:Array<Position> = Probability.getTargetArray(this, grid, init);
-        // let validTargets:Array<Position> = [];
-        // for (let row:number = 0; row<10; row++){
-        //     for (let column:number = 0; column<10; column++){
-        //         let pos:Position = new Position({"Row": GameState.numberToLetter[row],"Column":column+1});
-        //         if (this.isValidTarget(pos)) {
-        //             validTargets.push(pos) ;
-        //         }
-        //     }
-        // }
-        // console.log("validTargets.length at randomdraw: ");
-        // console.log(validTargets.length);
-        // console.log();
         let rand:number = Math.random()*validTargets.length;
         return validTargets[Math.floor(rand)];
     }

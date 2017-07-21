@@ -8,7 +8,7 @@ export class Probability{
         console.log("GRID = ", grid, " with optimal shift ", shift," _______________---------");
         let distribution:number[][] = Probability.getDistribution(gamestate);
         let validTargets:Array<Position> = [];
-        gamestate.display();
+        // gamestate.display();
         for (let row:number = 0; row<10; row++){
             for (let column:number = 0; column<10; column++){
                 let pos:Position = new Position({"Row": GameState.numberToLetter[row],"Column":column+1});
@@ -19,7 +19,6 @@ export class Probability{
                 }
                 else {
                     if ((gamestate.isValidTarget(pos)) && (((pos.row-pos.column )%grid+grid)%grid == shift)) {
-                        // console.log("Looking at ", pos, " with distribution frequency ", distribution[pos.row][pos.column]);
                         for (let frequency:number = 0; frequency < Math.floor(Math.pow(1.1,distribution[pos.row][pos.column])*distribution[pos.row][pos.column]); frequency++){
                             validTargets.push(pos) ;
                         }
@@ -27,7 +26,6 @@ export class Probability{
                 }
             }
         }
-        // console.log("Valid targets is: ", validTargets);
         return validTargets;
     }
     public static getOptimalShift(gamestate:GameState, grid:number):number{
@@ -52,9 +50,6 @@ export class Probability{
             return 2
         }
         return 1;
-        // console.log();
-        // console.log("Counter= ", counts);
-        // console.log();
     }
     public static getDistribution(gamestate:GameState):number[][]{
         let ans:number[][] = [
