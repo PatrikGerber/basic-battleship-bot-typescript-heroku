@@ -3,6 +3,7 @@ import {Position} from "./position"
 import {Probability} from "./probability"
 
 export class MyBot {
+    public counter:number = 0;
     public getShipPositions() {
         try {
             return Probability.randomShipPositions();
@@ -45,6 +46,9 @@ export class MyBot {
         gamestate.eliminateNeighboursOfSunken();
         gamestate.eliminateSunkenShips();    
         gamestate.eliminateNeighboursOfSunken();  
+        this.counter++;
+        console.log("Round ", this.counter, ", remainingships:");
+        console.log(gamestate.remainingShips);
         // console.log();
         // console.log("Remaining ships are: ", gamestate.remainingShips);
         // console.log("The distribution: ");
