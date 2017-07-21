@@ -37,7 +37,7 @@ export class Probability{
         for (let row:number = 0; row<10; row++){
             for (let column:number = 0; column< 10; column++){
                 if (board[row][column] == 0){
-                    console.log("IM HERE");
+                    // console.log("IM HERE");
                     ans[row][column] = Probability.countWays(row, column, gamestate);
                 }
             }   
@@ -45,7 +45,7 @@ export class Probability{
         return ans;
     }
     public static countWays(row:number, column:number, gamestate:GameState):number{
-        let count:number = 0;
+        let count:number = 0;     
         for (let shipLength of gamestate.remainingShips){
             let rowDirections:number[] = [1,-1,0,0];
             let columnDirections:number[] = [0,0,1,-1];
@@ -57,9 +57,9 @@ export class Probability{
                     if (!gamestate.isValidTarget(new Position({"Row":GameState.numberToLetter[row+dr*j], "Column":column+dc*j+1}))){
                         valid = false;
                     }
-                }
+                }   
                 if (valid){
-                    console.log("I get here at some point");
+                    // console.log("I get here at some point");
                     count++;
                 }
             } 
