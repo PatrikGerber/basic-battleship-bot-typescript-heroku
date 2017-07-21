@@ -1,4 +1,5 @@
 import {Position} from "./position"
+import {Probability} from "./probability"
 
 export class GameState{
     public ShipPositions:Array<any>;
@@ -267,15 +268,16 @@ export class GameState{
     }
 
     public randomDraw():Position{
-        let validTargets:Array<Position> = [];
-        for (let row:number = 0; row<10; row++){
-            for (let column:number = 0; column<10; column++){
-                let pos:Position = new Position({"Row": GameState.numberToLetter[row],"Column":column+1});
-                if (this.isValidTarget(pos)) {
-                    validTargets.push(pos) ;
-                }
-            }
-        }
+        let validTargets:Array<Position> = Probability.grid(this);
+        // let validTargets:Array<Position> = [];
+        // for (let row:number = 0; row<10; row++){
+        //     for (let column:number = 0; column<10; column++){
+        //         let pos:Position = new Position({"Row": GameState.numberToLetter[row],"Column":column+1});
+        //         if (this.isValidTarget(pos)) {
+        //             validTargets.push(pos) ;
+        //         }
+        //     }
+        // }
         let rand:number = Math.random()*validTargets.length;
         return validTargets[Math.floor(rand)];
     }
