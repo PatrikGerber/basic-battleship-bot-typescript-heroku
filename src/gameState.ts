@@ -4,7 +4,7 @@ export class GameState{
     public ShipPositions:Array<any>;
     public MyShots:Array<any>;
     public OpponentsShots:Array<any>;
-    public static converter:any = {
+    public static letterToNumber:any = {
         "A":0, 
         "B":1, 
         "C":2, 
@@ -16,7 +16,7 @@ export class GameState{
         "I":8,
         "J":9
     };
-    public static backConverter:any = {
+    public static numberToLetter:any = {
         0:"A",
         1:"B",
         2:"C",
@@ -51,7 +51,7 @@ export class GameState{
         this.OpponentsShots = (reqBody.OpponentsShots)?(reqBody.OpponentsShots):[];
         if (this.MyShots){
             for (let i:number = 0; i<this.MyShots.length; i++){
-                let row:number = GameState.converter[this.MyShots[i].Position.Row];
+                let row:number = GameState.letterToNumber[this.MyShots[i].Position.Row];
                 let column:number = this.MyShots[i].Position.Column - 1
                 this.board[row][column] = (this.MyShots[i].WasHit)? 1 : -1;
             }
@@ -90,11 +90,187 @@ export class GameState{
         return count;
     }
 
+    public findSunkenShips():void{
+        for (let row:number =0; row<10; row++){
+            for (let column:number = 0; column<10; column++){
+                //console.log("Im here")
+                let startColumn:number = column;
+                if (this.board[row][column]==1){
+                    while ((column<10) && (this.board[row][column]==1)){
+                        //console.log("we have hits at row ",row," column ",column);
+                        column++;
+                    }
+                    let sunken:boolean = this.isSunken(row,startColumn,row,column-1);
+                    //console.log("sunken = ", sunken)
+                    if (sunken){
+                        this.sink(row,startColumn,row,column-1);
+                    }
+                }
+            }
+        }
+        for (let column:number =0; column<10; column++){
+            for (let row:number = 0; row<10; row++){
+                let startRow:number = row;
+                if (this.board[row][column]==1){
+                    while ((row<10) && (this.board[row][column]==1)){
+                        row++;
+                    }
+                    let sunken:boolean = this.isSunken(startRow,column,row-1,column);
+                    if (sunken){
+                        this.sink(startRow,column,row-1,column);
+                    }
+                }
+            }
+        }
+    }
+
+    public eliminateSunkenNeighbours():void{
+        let x:number[] = [1,1,1,0,-1,-1,-1,0];
+        let y:number[] = [-1,0,1,1,1,0,-1,-1];
+        for (let row:number = 0; row < 10; row++){
+            for (let column:number = 0; column < 10; column ++){
+                if (this.board[row][column] == 2){
+                    for (let i:number = 0; i<8; i++){
+                        let dr:number = row + x[i];
+                        let dc:number = column + y[i];
+                        if (this.isValidTarget(new Position({"Row":GameState.numberToLetter[dr], "Column":dc+1}))){
+                            this.board[dr][dc] = -1;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public sink(startRow:number, startColumn:number, endRow:number, endColumn:number):void{
+        for (let row:number=startRow; row<=endRow; row++){
+            for (let column:number = startColumn; column <= endColumn; column++){
+                this.board[row][column] = 2;
+            }
+        }
+    }
+
+    public isSunken(startRow:number, startColumn:number, endRow:number, endColumn:number):boolean{
+        if ((startRow==endRow) && (startColumn == endColumn)){
+            return false;
+        }
+        if (startRow!=endRow){
+            if ((startRow == 0) || (this.board[startRow-1][startColumn]==-1)){
+                if ((endRow == 9) || (this.board[endRow+1][startColumn]==-1)){
+                    return true;
+                }
+            }
+        }
+        else {
+            if ((startColumn == 0) || (this.board[startRow][startColumn-1]==-1)){
+                if ((endColumn == 9) || (this.board[startRow][endColumn+1]==-1)){
+                    return true;
+                }
+            }
+        }
+        return false
+    }
+
+    public getHitPosition():Position{
+        for (let row:number = 0; row<10; row++){
+            for (let column:number = 0; column<10; column ++){
+                if (this.board[row][column] == 1){
+                    return new Position({"Row":GameState.numberToLetter[row], "Column":column+1});
+                }
+            }
+        }
+        return null
+    }
+
+    public getNeighbourHitPosition(hitPosition:Position):Position{
+        let row:number = hitPosition.row;
+        let column:number = hitPosition.column;
+        if (column<9){
+            if (this.board[row][column+1]==1){
+                return new Position({"Row":GameState.numberToLetter[row], "Column":column+2});
+            }
+        }
+        if (row<9){
+            if (this.board[row+1][column]==1){
+                return new Position({"Row":GameState.numberToLetter[row+1], "Column":column+1});
+            }
+        }
+        return null;
+    }
+
+    public targetNeighbours(hitPosition:Position):{"Row":string, "Column":number}{
+        //console.log("Called with hitPosition: ", hitPosition);
+        let x:number[] = [1,-1,0,0];
+        let y:number[] = [0,0,1,-1];
+        for (let i:number=0; i<4; i++){
+            let dr:number = hitPosition.row+x[i];
+            let dc:number = hitPosition.column+y[i];
+            let pos:Position = new Position({"Row": GameState.numberToLetter[dr], "Column":dc+1});
+            //console.log("Currently considering position: ", pos);
+            if (this.isValidTarget(pos)){
+                return pos.structure();
+            }
+        }
+        return null;
+    }
+
+    public findTargetAlongLine(hitPosition:Position, neighbourHitPosition:Position):{"Row":string, "Column":number}{
+        console.log("FindTargetAlongLine() called with ", hitPosition, neighbourHitPosition);
+        if (hitPosition.row == neighbourHitPosition.row){
+            let endColumn:number = neighbourHitPosition.column;
+            while ((endColumn<10) && (this.board[hitPosition.row][endColumn] == 1)){
+                endColumn++;
+            }
+            //console.log("Returning: ", {"Row":GameState.numberToLetter[hitPosition.row], "Column":endColumn+1})
+            if (endColumn<10){
+                if (this.board[hitPosition.row][endColumn]==0){
+                    console.log("Returning: ", {"Row":GameState.numberToLetter[hitPosition.row], "Column":endColumn+1})
+                    return {"Row":GameState.numberToLetter[hitPosition.row], "Column":endColumn+1};
+                }
+            }
+
+            endColumn = hitPosition.column;
+            while ((endColumn>=0) && (this.board[hitPosition.row][endColumn] == 1)){
+                endColumn--;
+            }
+            if (endColumn>=0){
+                if (this.board[hitPosition.row][endColumn]==0){
+                    console.log("Returning: ", {"Row":GameState.numberToLetter[hitPosition.row], "Column":endColumn+1})
+                    return {"Row":GameState.numberToLetter[hitPosition.row], "Column":endColumn+1};
+                }
+            }
+        }
+        else {
+            let endRow:number = neighbourHitPosition.row;
+            while ((endRow<10) && (this.board[endRow][hitPosition.column] == 1)){
+                endRow++;
+            }
+            if (endRow<10){
+                if (this.board[endRow][hitPosition.column] == 0){
+                    console.log("Returning: ", {"Row":GameState.numberToLetter[endRow], "Column":hitPosition.column+1})
+                    return {"Row":GameState.numberToLetter[endRow], "Column":hitPosition.column+1};
+                }
+            }
+            
+            endRow = hitPosition.row;
+            while ((endRow>=0) && (this.board[endRow][hitPosition.column] == 1)){
+                endRow--;
+            }
+            //console.log("Returning: ", {"Row":GameState.numberToLetter[endRow], "Column":hitPosition.column+1})
+            if (endRow>=0){
+                if (this.board[endRow][hitPosition.column] == 0){
+                    console.log("Returning: ", {"Row":GameState.numberToLetter[endRow], "Column":hitPosition.column+1})
+                    return {"Row":GameState.numberToLetter[endRow], "Column":hitPosition.column+1};
+                }
+            }
+        }
+    }
+
     public randomDraw():Position{
         let validTargets:Array<Position> = [];
         for (let row:number = 0; row<10; row++){
             for (let column:number = 0; column<10; column++){
-                let pos:Position = new Position({"Row": GameState.backConverter[row],"Column":column+1});
+                let pos:Position = new Position({"Row": GameState.numberToLetter[row],"Column":column+1});
                 if (this.isValidTarget(pos)) {
                     validTargets.push(pos) ;
                 }
