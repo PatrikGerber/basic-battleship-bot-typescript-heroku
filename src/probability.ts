@@ -17,13 +17,14 @@ export class Probability{
                     }
                 }
                 else if ((gamestate.isValidTarget(pos)) && ((pos.row-pos.column )%grid == shift)) {
+                    console.log("Looking at ", pos, " with distribution frequency ", distribution[pos.row][pos.column]);
                     for (let frequency:number = 0; frequency < distribution[pos.row][pos.column]; frequency++){
                         validTargets.push(pos) ;
                     }
                 }
             }
         }
-        console.log("Valid targets is: ", validTargets);
+        // console.log("Valid targets is: ", validTargets);
         return validTargets;
     }
     public static getOptimalShift(gamestate:GameState, grid:number):number{
