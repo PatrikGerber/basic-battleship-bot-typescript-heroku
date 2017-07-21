@@ -107,12 +107,12 @@ export class GameState{
                     if (sunken){
                         let shipLength:number = Math.abs(startColumn-column+1);
                         console.log("Remainingships before sinking: ", this.remainingShips);
-                        this.remainingShips = this.remainingShips.splice(this.remainingShips.indexOf(shipLength),1);
+                        console.log("Does this work?: ",this.remainingShips.splice(this.remainingShips.indexOf(shipLength),1));
                         this.sink(row,startColumn,row,column-1);
                         console.log("just sunk a ship");
                         this.display();
                         console.log("Remainginships: ", this.remainingShips);
-                        console.log();
+                        console.log();   
                     }
                 }
             }
@@ -128,7 +128,7 @@ export class GameState{
                     if (sunken){
                         let shipLength:number = Math.abs(startRow-row+1);
                         console.log("Remainingships before sinking: ", this.remainingShips);
-                        this.remainingShips = this.remainingShips.splice(this.remainingShips.indexOf(shipLength),1);
+                        console.log("Does this work?: ",this.remainingShips.splice(this.remainingShips.indexOf(shipLength),1));
                         this.sink(startRow,column,row-1,column);
                         console.log("just sunk a ship");
                         this.display();
