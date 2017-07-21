@@ -287,9 +287,6 @@ export class GameState{
     }
 
     public randomDraw(init:boolean = false):Position{
-        if (!init) {
-            console.log("RandomDraw called with remainingships ", this.remainingShips);
-        }
         let grid:number = this.remainingShips[this.remainingShips.length-1];
         let validTargets:Array<Position> = Probability.getTargetArray(this, grid, init);
         // let validTargets:Array<Position> = [];

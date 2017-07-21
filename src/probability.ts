@@ -4,8 +4,8 @@ import {BoardToJSON} from "./boardToJSON"
 
 export class Probability{
     public static getTargetArray(gamestate:GameState, grid:number, init:boolean):Array<Position>{
-        console.log("GRID = ", grid, " _______________---------");
         let shift:number = Probability.getOptimalShift(gamestate, grid);
+        console.log("GRID = ", grid, " with optimal shift ", shift," _______________---------");
         let distribution:number[][] = Probability.getDistribution(gamestate);
         let validTargets:Array<Position> = [];
         for (let row:number = 0; row<10; row++){
