@@ -106,6 +106,7 @@ export class GameState{
                     let sunken:boolean = this.isSunken(row,startColumn,row,column-1);
                     if (sunken){
                         let shipLength:number = Math.abs(startColumn-column+1);
+                        console.log("Remainingships before sinking: ", this.remainingShips);
                         this.remainingShips = this.remainingShips.splice(this.remainingShips.indexOf(shipLength),1);
                         this.sink(row,startColumn,row,column-1);
                         console.log("just sunk a ship");
