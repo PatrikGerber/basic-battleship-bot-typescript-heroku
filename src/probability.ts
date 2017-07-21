@@ -29,28 +29,27 @@ export class Probability{
         return validTargets;
     }
     public static getOptimalShift(gamestate:GameState, grid:number):number{
+        if (grid==2) {
+            return 0;
+        }
+        let counts:number[] = [];
+        for (let shift of [0,2]){
+            let counter:number = 0;
+            for (let row:number = 0; row <10; row++){
+                for (let column:number = 0; column < 10; column++){
+                    if ((column-row)%grid == shift){
+                        if (gamestate.isValidTarget(new Position({"Row":GameState.numberToLetter[row], "Column":column+1}))){
+                            counter++;
+                        }
+                    }
+                }
+            }
+            counts[Math.floor(shift/2)] = counter;
+        }
+        if (counts[0] > counts[1]){
+            return 2
+        }
         return 0;
-        // if (grid==2) {
-        //     return 0;
-        // }
-        // let counts:number[] = [];
-        // for (let shift of [0,2]){
-        //     let counter:number = 0;
-        //     for (let row:number = 0; row <10; row++){
-        //         for (let column:number = 0; column < 10; column++){
-        //             if ((column-row)%grid == shift){
-        //                 if (gamestate.isValidTarget(new Position({"Row":GameState.numberToLetter[row], "Column":column+1}))){
-        //                     counter++;
-        //                 }
-        //             }
-        //         }
-        //     }
-        //     counts[Math.floor(shift/2)] = counter;
-        // }
-        // if (counts[0] > counts[1]){
-        //     return 2
-        // }
-        // return 1;
     }
     public static getDistribution(gamestate:GameState):number[][]{
         let ans:number[][] = [
