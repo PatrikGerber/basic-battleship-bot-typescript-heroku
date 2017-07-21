@@ -40,7 +40,6 @@ export class Probability{
         for (let row:number = 0; row<10; row++){
             for (let column:number = 0; column< 10; column++){
                 if (board[row][column] == 0){
-                    // console.log("IM HERE");
                     ans[row][column] = Probability.countWays(row, column, gamestate);
                 }
             }   
@@ -62,7 +61,6 @@ export class Probability{
                     }
                 }   
                 if (valid){
-                    // console.log("I get here at some point");
                     count++;
                 }
             } 
