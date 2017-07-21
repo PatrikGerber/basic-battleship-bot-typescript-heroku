@@ -58,6 +58,7 @@ export class Probability{
                     }
                 }
                 if (valid){
+                    console.log("I get here at some point");
                     count++;
                 }
             } 
