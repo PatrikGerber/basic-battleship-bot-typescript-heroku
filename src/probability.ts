@@ -50,8 +50,10 @@ export class Probability{
             [0,0,0,0,0,0,0,0,0,0],
             [0,0,0,0,0,0,0,0,0,0],
         ]
+        // console.log("Im here 1");
         for (let len of ships){
-            let gamestate:GameState = new GameState(BoardToJSON.convert(board));
+            let gamestate:GameState = new GameState({});
+            gamestate.board = board;
             gamestate.eliminateSunkenShips();
             gamestate.eliminateNeighboursOfSunken();
             gamestate.eliminateSunkenShips();
@@ -67,18 +69,19 @@ export class Probability{
                 let dc:number = columnDirections[direction];
 
                 let valid:boolean = true;
-                for (let i:number = 0; i<len; i==0){
+                // console.log("Im here 2");
+                for (let i:number = 0; i<len; i++){
                     if (!gamestate.isValidTarget(new Position({"Row":GameState.numberToLetter[pos.row+i*dr], "Column":pos.column+1+i*dc}))){
                         valid = false;
                     }
                 }
                 if (valid) {
+                    found = true;
                     answer.push({StartingSquare:{Row:GameState.numberToLetter[pos.row], Column:pos.column+1},
                                 EndingSquare:{Row:GameState.numberToLetter[pos.row+(len-1)*dr], Column:pos.column+1+(len-1)*dc}
                             });
-                    found = true;
                     for (let j:number = 0; j<len; j++){
-                        board[pos.row+j*dr][pos.column+j*dc];
+                        board[pos.row+j*dr][pos.column+j*dc] = 2;
                     }
                 }
             }
