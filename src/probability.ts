@@ -5,6 +5,7 @@ import {BoardToJSON} from "./boardToJSON"
 export class Probability{
     public static getTargetArray(gamestate:GameState, grid:number, init:boolean):Array<Position>{
         console.log("GRID = ", grid, " _______________---------");
+        let shift:number = Probability.getOptimalShift(gamestate, grid);
         let distribution:number[][] = Probability.getDistribution(gamestate);
         let validTargets:Array<Position> = [];
         for (let row:number = 0; row<10; row++){
@@ -15,7 +16,7 @@ export class Probability{
                         validTargets.push(pos);
                     }
                 }
-                else if ((gamestate.isValidTarget(pos)) && ((pos.row-pos.column )%grid == 0)) {
+                else if ((gamestate.isValidTarget(pos)) && ((pos.row-pos.column )%grid == shift)) {
                     for (let frequency:number = 0; frequency < distribution[pos.row][pos.column]; frequency++){
                         validTargets.push(pos) ;
                     }
@@ -23,6 +24,29 @@ export class Probability{
             }
         }
         return validTargets;
+    }
+    public static getOptimalShift(gamestate:GameState, grid:number):number{
+        let counts:number[] = [];
+        for (let shift:number = 0; shift<grid; shift++){
+            let counter:number = 0;
+            for (let row:number = 0; row <10; row++){
+                for (let column:number = 0; column < 10; column++){
+                    if ((column-row)%grid == shift){
+                        if (gamestate.isValidTarget(new Position({"Row":GameState.numberToLetter[row], "Column":column+1}))){
+                            counter++;
+                        }
+                    }
+                }
+            }
+            counts[shift] = counter;
+        }
+        let answer:number = 0;
+        for (let i:number=0; i<counts.length; i++){
+            if (counts[answer]>counts[i]){
+                answer = i;
+            }
+        }
+        return answer;
     }
     public static getDistribution(gamestate:GameState):number[][]{
         let ans:number[][] = [
