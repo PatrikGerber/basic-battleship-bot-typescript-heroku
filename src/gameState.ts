@@ -280,7 +280,8 @@ export class GameState{
     }
 
     public randomDraw(init:boolean = false):Position{
-        let validTargets:Array<Position> = Probability.targetArray(this, init);
+        let grid:number = this.remainingShips[this.remainingShips.length-1];
+        let validTargets:Array<Position> = Probability.getTargetArray(this, grid, init);
         // let validTargets:Array<Position> = [];
         // for (let row:number = 0; row<10; row++){
         //     for (let column:number = 0; column<10; column++){

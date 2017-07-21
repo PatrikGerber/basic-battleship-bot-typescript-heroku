@@ -3,7 +3,7 @@ import {Position} from "./position"
 import {BoardToJSON} from "./boardToJSON"
 
 export class Probability{
-    public static targetArray(gamestate:GameState, init:boolean):Array<Position>{
+    public static getTargetArray(gamestate:GameState, grid:number, init:boolean):Array<Position>{
         let distribution:number[][] = Probability.getDistribution(gamestate);
         let validTargets:Array<Position> = [];
         for (let row:number = 0; row<10; row++){
@@ -14,8 +14,8 @@ export class Probability{
                         validTargets.push(pos);
                     }
                 }
-                else if ((gamestate.isValidTarget(pos)) && ((pos.row+pos.column )%2 == 0)) {
-                    for (let frequency:number = 0; frequency<distribution[pos.row][pos.column]; frequency++){
+                else if ((gamestate.isValidTarget(pos)) && ((pos.row-pos.column )%grid == 0)) {
+                    for (let frequency:number = 0; frequency < distribution[pos.row][pos.column]; frequency++){
                         validTargets.push(pos) ;
                     }
                 }
