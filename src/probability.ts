@@ -40,6 +40,9 @@ export class Probability{
             }
             counts[shift] = counter;
         }
+        console.log();
+        console.log("Counter= ", counts);
+        console.log();
         let answer:number = 0;
         for (let i:number=0; i<counts.length; i++){
             if (counts[answer]>counts[i]){
