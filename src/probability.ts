@@ -23,6 +23,7 @@ export class Probability{
                 }
             }
         }
+        console.log("Valid targets is: ", validTargets);
         return validTargets;
     }
     public static getOptimalShift(gamestate:GameState, grid:number):number{
