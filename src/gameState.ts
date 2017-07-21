@@ -105,7 +105,7 @@ export class GameState{
                     }
                     let sunken:boolean = this.isSunken(row,startColumn,row,column-1);
                     if (sunken){
-                        let shipLength:number = Math.abs(startColumn-column+1);
+                        let shipLength:number = column-startColumn;
                         console.log("Remainingships before sinking: ", this.remainingShips);
                         this.sink(row,startColumn,row,column-1);
                         this.remainingShips = this.remove(shipLength);
@@ -126,7 +126,7 @@ export class GameState{
                     }
                     let sunken:boolean = this.isSunken(startRow,column,row-1,column);
                     if (sunken){
-                        let shipLength:number = Math.abs(startRow-row+1);
+                        let shipLength:number = row-startRow;
                         console.log("Remainingships before sinking: ", this.remainingShips);
                         this.sink(startRow,column,row-1,column);
                         this.remainingShips = this.remove(shipLength);
