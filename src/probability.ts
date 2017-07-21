@@ -4,6 +4,7 @@ import {BoardToJSON} from "./boardToJSON"
 
 export class Probability{
     public static getTargetArray(gamestate:GameState, grid:number, init:boolean):Array<Position>{
+        console.log("GRID = ", grid, " _______________---------");
         let distribution:number[][] = Probability.getDistribution(gamestate);
         let validTargets:Array<Position> = [];
         for (let row:number = 0; row<10; row++){

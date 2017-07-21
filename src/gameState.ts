@@ -291,9 +291,9 @@ export class GameState{
         //         }
         //     }
         // }
-        console.log("validTargets.length at randomdraw: ");
-        console.log(validTargets.length);
-        console.log();
+        // console.log("validTargets.length at randomdraw: ");
+        // console.log(validTargets.length);
+        // console.log();
         let rand:number = Math.random()*validTargets.length;
         return validTargets[Math.floor(rand)];
     }
