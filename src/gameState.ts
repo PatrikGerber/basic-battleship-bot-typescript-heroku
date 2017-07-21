@@ -5,6 +5,9 @@ export class GameState{
     public ShipPositions:Array<any>;
     public MyShots:Array<any>;
     public OpponentsShots:Array<any>;
+    public getBoard():number[][]{
+        return this.board;
+    }
     public static letterToNumber:any = {
         "A":0, 
         "B":1, 
@@ -267,8 +270,8 @@ export class GameState{
         }
     }
 
-    public randomDraw():Position{
-        let validTargets:Array<Position> = Probability.grid(this);
+    public randomDraw(init:boolean = false):Position{
+        let validTargets:Array<Position> = Probability.grid(this, init);
         // let validTargets:Array<Position> = [];
         // for (let row:number = 0; row<10; row++){
         //     for (let column:number = 0; column<10; column++){

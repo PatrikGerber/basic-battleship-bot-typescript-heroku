@@ -1,13 +1,19 @@
 import {GameState} from "./gameState"
 import {Position} from "./position"
+import {BoardToJSON} from "./boardToJSON"
 
 export class Probability{
-    public static grid(gamestate:GameState):Array<Position>{
+    public static grid(gamestate:GameState, init:boolean):Array<Position>{
         let validTargets:Array<Position> = [];
         for (let row:number = 0; row<10; row++){
             for (let column:number = 0; column<10; column++){
                 let pos:Position = new Position({"Row": GameState.numberToLetter[row],"Column":column+1});
-                if ((gamestate.isValidTarget(pos)) && ((pos.row+pos.column )%2 == 0)) {
+                if (init){
+                    if (gamestate.isValidTarget(pos)){
+                        validTargets.push(pos);
+                    }
+                }
+                else if ((gamestate.isValidTarget(pos)) && ((pos.row+pos.column )%2 == 0)) {
                     validTargets.push(pos) ;
                 }
             }
@@ -45,8 +51,32 @@ export class Probability{
             [0,0,0,0,0,0,0,0,0,0],
         ]
         for (let len of ships){
-            let row:number = Math.floor(Math.random()*10);
-            let column:number = Math.floor(Math.random()*10);
+            let gamestate:GameState = new GameState(BoardToJSON.convert(board));
+            gamestate.eliminateSunkenShips();
+            gamestate.eliminateNeighboursOfSunken();
+            gamestate.eliminateSunkenShips();
+            gamestate.eliminateNeighboursOfSunken();
+            let found:boolean = false
+            while (!found) {
+                let pos:Position = gamestate.randomDraw(true);
+                let direction:number = Math.floor(Math.random()*4);
+
+                // 0 right, 1 down, 2 left, 3 up
+                if (direction == 0){
+                    let valid:boolean = true;
+                    for (let i:number = 0; i<len; i==0){
+                        if (!gamestate.isValidTarget(new Position({"Row":GameState.numberToLetter[pos.row], "Column":pos.column+1+i}))){
+                            valid = false;
+                        }
+                    }
+                    if (valid) {
+                        answer.push({StartingSquare:{Row:GameState.numberToLetter[pos.row], Column:pos.column+1},
+                                    EndingSquare:{Row:GameState.numberToLetter[pos.row], Column:pos.column+len}
+                                });
+                        found = true;
+                    }
+                }
+            }
         }
         return answer;
     }
