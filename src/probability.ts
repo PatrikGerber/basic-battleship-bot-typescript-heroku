@@ -26,27 +26,28 @@ export class Probability{
         return validTargets;
     }
     public static getOptimalShift(gamestate:GameState, grid:number):number{
-        let counts:number[] = [];
-        for (let shift:number = 0; shift<grid; shift++){
-            let counter:number = 0;
-            for (let row:number = 0; row <10; row++){
-                for (let column:number = 0; column < 10; column++){
-                    if ((column-row)%grid == shift){
-                        if (gamestate.isValidTarget(new Position({"Row":GameState.numberToLetter[row], "Column":column+1}))){
-                            counter++;
-                        }
-                    }
-                }
-            }
-            counts[shift] = counter;
-        }
-        let answer:number = 0;
-        for (let i:number=0; i<counts.length; i++){
-            if (counts[answer]>counts[i]){
-                answer = i;
-            }
-        }
-        return answer;
+        // let counts:number[] = [];
+        // for (let shift:number = 0; shift<grid; shift++){
+        //     let counter:number = 0;
+        //     for (let row:number = 0; row <10; row++){
+        //         for (let column:number = 0; column < 10; column++){
+        //             if ((column-row)%grid == shift){
+        //                 if (gamestate.isValidTarget(new Position({"Row":GameState.numberToLetter[row], "Column":column+1}))){
+        //                     counter++;
+        //                 }
+        //             }
+        //         }
+        //     }
+        //     counts[shift] = counter;
+        // }
+        // let answer:number = 0;
+        // for (let i:number=0; i<counts.length; i++){
+        //     if (counts[answer]>counts[i]){
+        //         answer = i;
+        //     }
+        // }
+        // return answer;
+        return 0;
     }
     public static getDistribution(gamestate:GameState):number[][]{
         let ans:number[][] = [
