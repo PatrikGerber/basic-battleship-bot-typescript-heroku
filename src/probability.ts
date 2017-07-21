@@ -44,15 +44,25 @@ export class Probability{
         return null;
     }
     public static countWays(row:number, column:number, gamestate:GameState):number{
-        let ans:number = 0;
+        let count:number = 0;
         for (let shipLength of gamestate.remainingShips){
             let rowDirections:number[] = [1,-1,0,0];
             let columnDirections:number[] = [0,0,1,-1];
             for (let i:number = 0; i<4; i++){
-
+                let dr:number = rowDirections[i];
+                let dc:number = columnDirections[i];
+                let valid:boolean = true;
+                for (let j:number = 0; j<shipLength; j++){
+                    if (gamestate.getBoard()[row+dr*j][column+dc*j] != 0){
+                        valid = false;
+                    }
+                }
+                if (valid){
+                    count++;
+                }
             } 
         }
-        return 0;
+        return count;
     }
     public static randomShipPositions():Array<{ StartingSquare: { Row:string, Column:number }, EndingSquare : { Row:string , Column:number } }>{
         let answer:Array<{ StartingSquare: { Row:string, Column:number }, EndingSquare : { Row:string , Column:number } }> = [];
