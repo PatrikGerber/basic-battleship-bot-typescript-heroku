@@ -46,19 +46,15 @@ export class Probability{
                     }
                 }
             }
-            counts[shift] = counter;
+            counts[Math.floor(shift/2)] = counter;
         }
-        console.log();
-        console.log("Counter= ", counts);
-        console.log();
-        let answer:number = 0;
-        for (let i:number=0; i<counts.length; i++){
-            if (counts[answer]>counts[i]){
-                answer = i;
-            }
+        if (counts[0] > counts[1]){
+            return 2
         }
-        return 2*answer;
-        // return 0;
+        return 1;
+        // console.log();
+        // console.log("Counter= ", counts);
+        // console.log();
     }
     public static getDistribution(gamestate:GameState):number[][]{
         let ans:number[][] = [
