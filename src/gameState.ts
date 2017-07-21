@@ -84,17 +84,6 @@ export class GameState{
         return false;
     }
 
-    // public inHuntMode():number{
-    //     let count:number = 0;
-    //     for (let i:number = 1; i<=Math.min(this.MyShots.length,4); i++){
-    //         let shot:{"Position":{"Row":string, "Column":number}, "WasHit":boolean} = this.MyShots[this.MyShots.length-i];
-    //         if (shot.WasHit){
-    //             count++;
-    //         }
-    //     }
-    //     return count;
-    // }
-
     public eliminateSunkenShips():void{
         for (let row:number =0; row<10; row++){
             for (let column:number = 0; column<10; column++){
