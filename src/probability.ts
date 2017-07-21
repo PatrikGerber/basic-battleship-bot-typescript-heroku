@@ -39,9 +39,9 @@ export class Probability{
                 if (board[row][column] == 0){
                     ans[row][column] = Probability.countWays(row, column, gamestate);
                 }
-            }
+            }   
         }
-        return null;
+        return ans;
     }
     public static countWays(row:number, column:number, gamestate:GameState):number{
         let count:number = 0;
