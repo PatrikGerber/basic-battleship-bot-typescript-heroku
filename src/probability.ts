@@ -53,7 +53,7 @@ export class Probability{
                 let dc:number = columnDirections[i];
                 let valid:boolean = true;
                 for (let j:number = 0; j<shipLength; j++){
-                    if (gamestate.getBoard()[row+dr*j][column+dc*j] != 0){
+                    if (gamestate.isValidTarget(new Position({"Row":GameState.numberToLetter[row+dr*j], "Column":column+dc*j+1}))){
                         valid = false;
                     }
                 }
