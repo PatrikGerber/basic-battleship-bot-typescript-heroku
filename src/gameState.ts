@@ -5,6 +5,7 @@ export class GameState{
     public ShipPositions:Array<any>;
     public MyShots:Array<any>;
     public OpponentsShots:Array<any>;
+    public remainingShips:number[] = [2,3,3,4,5];
     public getBoard():number[][]{
         return this.board;
     }
@@ -268,6 +269,10 @@ export class GameState{
                 }
             }
         }
+    }
+
+    public getRemainingShips():number[]{
+        return this.remainingShips;
     }
 
     public randomDraw(init:boolean = false):Position{

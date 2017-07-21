@@ -33,7 +33,19 @@ export class Probability{
             [0,0,0,0,0,0,0,0,0,0],
             [0,0,0,0,0,0,0,0,0,0],
         ]
+        let board:number[][] = gamestate.getBoard();
+        for (let row:number = 0; row<10; row++){
+            for (let column:number = 0; column< 10; column++){
+                if (board[row][column] == 0){
+                    ans[row][column] = Probability.countWays(row, column, gamestate);
+                }
+            }
+        }
         return null;
+    }
+    public static countWays(row:number, column:number, gamestate:GameState):number{
+        
+        return 0;
     }
     public static randomShipPositions():Array<{ StartingSquare: { Row:string, Column:number }, EndingSquare : { Row:string , Column:number } }>{
         let answer:Array<{ StartingSquare: { Row:string, Column:number }, EndingSquare : { Row:string , Column:number } }> = [];
