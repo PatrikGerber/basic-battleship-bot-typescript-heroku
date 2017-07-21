@@ -8,17 +8,17 @@ export class Probability{
         console.log("GRID = ", grid, " with optimal shift ", shift," _______________---------");
         let distribution:number[][] = Probability.getDistribution(gamestate);
         let validTargets:Array<Position> = [];
+        gamestate.display();
         for (let row:number = 0; row<10; row++){
             for (let column:number = 0; column<10; column++){
                 let pos:Position = new Position({"Row": GameState.numberToLetter[row],"Column":column+1});
-                gamestate.display();
                 if (init){
                     if (gamestate.isValidTarget(pos)){
                         validTargets.push(pos);
                     }
                 }
                 else if ((gamestate.isValidTarget(pos)) && ((pos.row-pos.column )%grid == shift)) {
-                    console.log("Looking at ", pos, " with distribution frequency ", distribution[pos.row][pos.column]);
+                    // console.log("Looking at ", pos, " with distribution frequency ", distribution[pos.row][pos.column]);
                     for (let frequency:number = 0; frequency < distribution[pos.row][pos.column]; frequency++){
                         validTargets.push(pos) ;
                     }
