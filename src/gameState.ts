@@ -107,8 +107,9 @@ export class GameState{
                     if (sunken){
                         let shipLength:number = Math.abs(startColumn-column+1);
                         console.log("Remainingships before sinking: ", this.remainingShips);
-                        console.log("Does this work?: ",this.remainingShips.splice(this.remainingShips.indexOf(shipLength),1));
+                        // console.log("Does this work?: ",this.remainingShips.splice(this.remainingShips.indexOf(shipLength),1));
                         this.sink(row,startColumn,row,column-1);
+                        this.remainingShips = this.remove(shipLength);
                         console.log("just sunk a ship");
                         this.display();
                         console.log("Remainginships: ", this.remainingShips);
@@ -128,8 +129,9 @@ export class GameState{
                     if (sunken){
                         let shipLength:number = Math.abs(startRow-row+1);
                         console.log("Remainingships before sinking: ", this.remainingShips);
-                        console.log("Does this work?: ",this.remainingShips.splice(this.remainingShips.indexOf(shipLength),1));
+                        // console.log("Does this work?: ",this.remainingShips.splice(this.remainingShips.indexOf(shipLength),1));
                         this.sink(startRow,column,row-1,column);
+                        this.remainingShips = this.remove(shipLength);
                         console.log("just sunk a ship");
                         this.display();
                         console.log("Remainginships: ", this.remainingShips);
@@ -138,6 +140,18 @@ export class GameState{
                 }
             }
         }
+    }
+
+    public remove(shipLength:number):number[]{
+        let ans:number[] = [];
+        let done:boolean = false;
+        for (let i:number = 0; i<this.remainingShips.length; i++){
+            if ((done) || (this.remainingShips[i]!=shipLength)){
+                ans.push(this.remainingShips[i]);
+                done = true;
+            }
+        }
+        return ans;
     }
 
     public eliminateNeighboursOfSunken():void{
