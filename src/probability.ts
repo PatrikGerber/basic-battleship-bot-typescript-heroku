@@ -31,8 +31,11 @@ export class Probability{
         return validTargets;
     }
     public static getOptimalShift(gamestate:GameState, grid:number):number{
+        if (grid==2) {
+            return 0;
+        }
         let counts:number[] = [];
-        for (let shift:number = 0; shift<grid; shift++){
+        for (let shift of [0,2]){
             let counter:number = 0;
             for (let row:number = 0; row <10; row++){
                 for (let column:number = 0; column < 10; column++){
@@ -54,7 +57,7 @@ export class Probability{
                 answer = i;
             }
         }
-        return answer;
+        return 2*answer;
         // return 0;
     }
     public static getDistribution(gamestate:GameState):number[][]{

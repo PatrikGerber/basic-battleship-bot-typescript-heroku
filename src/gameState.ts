@@ -293,7 +293,13 @@ export class GameState{
     }
 
     public randomDraw(init:boolean = false):Position{
-        let grid:number = this.remainingShips[this.remainingShips.length-1];
+        let grid:number;
+        if (this.remainingShips[this.remainingShips.length-1]>=4){
+            grid = 4;
+        }
+        else {
+            grid = 2;
+        }
         let validTargets:Array<Position> = Probability.getTargetArray(this, grid, init);
         // let validTargets:Array<Position> = [];
         // for (let row:number = 0; row<10; row++){
