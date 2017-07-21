@@ -60,20 +60,25 @@ export class Probability{
             while (!found) {
                 let pos:Position = gamestate.randomDraw(true);
                 let direction:number = Math.floor(Math.random()*4);
+                let rowDirections:number[] = [0,0,1,-1];
+                let columnDirections:number[] = [1,-1,0,0];
 
-                // 0 right, 1 down, 2 left, 3 up
-                if (direction == 0){
-                    let valid:boolean = true;
-                    for (let i:number = 0; i<len; i==0){
-                        if (!gamestate.isValidTarget(new Position({"Row":GameState.numberToLetter[pos.row], "Column":pos.column+1+i}))){
-                            valid = false;
-                        }
+                let dr:number = rowDirections[direction];
+                let dc:number = columnDirections[direction];
+
+                let valid:boolean = true;
+                for (let i:number = 0; i<len; i==0){
+                    if (!gamestate.isValidTarget(new Position({"Row":GameState.numberToLetter[pos.row+i*dr], "Column":pos.column+1+i*dc}))){
+                        valid = false;
                     }
-                    if (valid) {
-                        answer.push({StartingSquare:{Row:GameState.numberToLetter[pos.row], Column:pos.column+1},
-                                    EndingSquare:{Row:GameState.numberToLetter[pos.row], Column:pos.column+len}
-                                });
-                        found = true;
+                }
+                if (valid) {
+                    answer.push({StartingSquare:{Row:GameState.numberToLetter[pos.row], Column:pos.column+1},
+                                EndingSquare:{Row:GameState.numberToLetter[pos.row+(len-1)*dr], Column:pos.column+1+(len-1)*dc}
+                            });
+                    found = true;
+                    for (let j:number = 0; j<len; j++){
+                        board[pos.row+j*dr][pos.column+j*dc];
                     }
                 }
             }
