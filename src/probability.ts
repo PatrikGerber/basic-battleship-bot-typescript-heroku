@@ -11,6 +11,7 @@ export class Probability{
         for (let row:number = 0; row<10; row++){
             for (let column:number = 0; column<10; column++){
                 let pos:Position = new Position({"Row": GameState.numberToLetter[row],"Column":column+1});
+                gamestate.display();
                 if (init){
                     if (gamestate.isValidTarget(pos)){
                         validTargets.push(pos);
