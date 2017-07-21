@@ -134,9 +134,16 @@ export class GameState{
         let ans:number[] = [];
         let done:boolean = false;
         for (let i:number = 0; i<this.remainingShips.length; i++){
-            if ((done) || (this.remainingShips[i]!=shipLength)){
+            if (done){
                 ans.push(this.remainingShips[i]);
-                done = true;
+            }
+            else {
+                if (this.remainingShips[i]!=shipLength){
+                    ans.push(this.remainingShips[i]);
+                }
+                else{
+                    done = true;
+                }
             }
         }
         return ans;
