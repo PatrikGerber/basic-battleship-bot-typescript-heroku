@@ -165,12 +165,75 @@ export class GameState{
         }
     }
 
+    public canEliminateGivenRemainingShips(startRow:number, startColumn:number, endRow:number, endColumn:number):boolean{
+        let canFit:boolean = false;
+        if (startRow != endRow){
+            let currentLength:number = Math.abs(endRow - startRow)+1;
+            let count:number = 0;
+            let i:number = startRow;
+            while (i<10){
+                if ((this.board[i][startColumn] == 1) || (this.board[i][startColumn] == 0)){
+                    count++;
+                }
+                else break;
+                i++;
+            }
+            i = startRow-1;
+            while (i>=0){
+                if ((this.board[i][startColumn] == 1) || (this.board[i][startColumn] == 0)){
+                    count++;
+                }
+                else break;
+                i--;
+            }
+            for (let index:number = 0; index<this.remainingShips.length; index++){
+                if (currentLength < this.remainingShips[index]){
+                    if (count>=this.remainingShips[index]){
+                        canFit = true;
+                    }
+                }
+            }
+        }
+        else {
+            let currentLength:number = Math.abs(endColumn - startColumn)+1;
+            let canFit:boolean = false;
+            let count:number = 0;
+            let i:number = startColumn;
+            while (i<10){
+                if ((this.board[startRow][i] == 1) || (this.board[startRow][i] == 0)){
+                    count++;
+                }
+                else break;
+                i++;
+            }
+            i = startRow-1;
+            while (i>=0){
+                if ((this.board[startRow][i] == 1) || (this.board[startRow][i] == 0)){
+                    count++;
+                }
+                else break;
+                i--;
+            }
+            for (let index:number = 0; index<this.remainingShips.length; index++){
+                if (currentLength < this.remainingShips[index]){
+                    if (count>=this.remainingShips[index]){
+                        canFit = true;
+                    }
+                }
+            }
+        }
+        return (!canFit);
+    }
+
     public isSunken(startRow:number, startColumn:number, endRow:number, endColumn:number):boolean{
         if ((startRow==endRow) && (startColumn == endColumn)){
             return false;
         }
         if (startRow!=endRow){
-            if (Math.abs(endRow - startRow)+1 == this.remainingShips[this.remainingShips.length-1]){
+            // if (Math.abs(endRow - startRow)+1 == this.remainingShips[this.remainingShips.length-1]){
+            //     return true;
+            // }
+            if (this.canEliminateGivenRemainingShips(startRow, startColumn, endRow, endColumn)) {
                 return true;
             }
             if ((startRow == 0) || (this.board[startRow-1][startColumn]==-1)){
