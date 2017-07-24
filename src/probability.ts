@@ -128,6 +128,9 @@ export class Probability{
             gamestate.eliminateNeighboursOfSunken();
             gamestate.eliminateSunkenShips();
             gamestate.eliminateNeighboursOfSunken();
+            // We have to do the above twice because we might be able to sink additional ships 
+            // after eliminating neighbours of already sunken ships
+
             let found:boolean = false
             let count:number = 0;
             while (!found){

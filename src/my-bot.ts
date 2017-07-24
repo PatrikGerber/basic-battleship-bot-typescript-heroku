@@ -31,7 +31,8 @@ export class MyBot {
                 return this.getRandomNextTarget(gamestate);
             }
         }
-        return { Row: "E", Column: 5 };
+        let firstShots:{Row:string, Column:number}[] = [{ Row: "E", Column: 5 },{ Row: "F", Column: 6 }]
+        return firstShots[Math.floor(2*Math.random())];
     }
 
     public getNextTarget(gamestate:GameState):{"Row":string, "Column":number}{
