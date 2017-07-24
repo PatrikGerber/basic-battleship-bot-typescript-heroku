@@ -229,11 +229,11 @@ export class GameState{
         if ((startRow==endRow) && (startColumn == endColumn)){
             return false;
         }
-        if (!init){
-            if (this.canEliminateGivenRemainingShips(startRow, startColumn, endRow, endColumn)) {
-                return true;
-            }
-        }
+        // if (!init){
+        //     if (this.canEliminateGivenRemainingShips(startRow, startColumn, endRow, endColumn)) {
+        //         return true;
+        //     }
+        // }
         if (startRow!=endRow){
             if (Math.abs(endRow - startRow)+1 == this.remainingShips[this.remainingShips.length-1]){
                 return true;
