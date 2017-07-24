@@ -12,7 +12,7 @@ export class Probability{
             for (let column:number = 0; column<10; column++){
                 let pos:Position = new Position({"Row": GameState.numberToLetter[row],"Column":column+1});
                 if (init){
-                    if (gamestate.isValidTarget(pos)){
+                    if (((row>6)||(row<4) && ((column>6)||(column<4)))&&(gamestate.isValidTarget(pos))){
                         for (let frequency:number = 0; frequency < Math.floor(34/Math.sqrt(distribution[pos.row][pos.column])); frequency++){
                             validTargets.push(pos) ;
                         }
