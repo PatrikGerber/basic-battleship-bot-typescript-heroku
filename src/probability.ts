@@ -98,23 +98,6 @@ export class Probability{
                 }
             } 
         }
-        // for (let shipLength of gamestate.remainingShips){
-        //     let rowDirections:number[] = [1,-1,0,0];
-        //     let columnDirections:number[] = [0,0,1,-1];
-        //     for (let i:number = 0; i<4; i++){
-        //         let dr:number = rowDirections[i];
-        //         let dc:number = columnDirections[i];
-        //         let valid:boolean = true;
-        //         for (let j:number = 0; j<shipLength; j++){
-        //             if (!gamestate.isValidTarget(new Position({"Row":GameState.numberToLetter[row+dr*j], "Column":column+dc*j+1}))){
-        //                 valid = false;
-        //             }
-        //         }   
-        //         if (valid){
-        //             count++;
-        //         }
-        //     } 
-        // }
         return count;
     }
     public static getRandomShipPositions():Array<{ StartingSquare: { Row:string, Column:number }, EndingSquare : { Row:string , Column:number } }>{
