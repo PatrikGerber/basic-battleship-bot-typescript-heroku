@@ -129,7 +129,13 @@ export class Probability{
             gamestate.eliminateSunkenShips();
             gamestate.eliminateNeighboursOfSunken();
             let found:boolean = false
+            let count:number = 0;
             while (!found){
+                if (count>1000) {
+                    console.log("Still not found shipplacements afeter 1000 loops");
+                    throw new Error("Still not found shipplacements afeter 1000 loops");
+                }
+                count++;
                 let pos:Position = gamestate.randomDraw(true);
                 let rowDirections:number[] = [0,0,1,-1];
                 let columnDirections:number[] = [1,-1,0,0];
