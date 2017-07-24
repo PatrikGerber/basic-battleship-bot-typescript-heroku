@@ -3,7 +3,6 @@ import {Position} from "./position"
 import {Probability} from "./probability"
 
 export class MyBot {
-    public counter:number = 0;
     public getShipPositions() {
         try {
             return Probability.getRandomShipPositions();
@@ -21,7 +20,6 @@ export class MyBot {
 
     // gamestate is the body of the post request i.e. req.body
     public selectTarget(gamestate:GameState) {
-        // gamestate.display();
 
         let previousShot = (gamestate.MyShots.length != 0)?(gamestate.MyShots[gamestate.MyShots.length-1].Position):null;
         if(previousShot) {
@@ -41,9 +39,9 @@ export class MyBot {
         gamestate.eliminateNeighboursOfSunken();
         gamestate.eliminateSunkenShips();    
         gamestate.eliminateNeighboursOfSunken();  
-        this.counter++;
-        console.log("Round ", this.counter, ", remainingships:");
-        console.log(gamestate.remainingShips);      
+        // We have to do the above twice because we might be able to sink additional ships 
+        // after eliminating neighbours of already sunken ships
+
         let hitPosition:Position = gamestate.getHitPosition();
         if (hitPosition){
             let neighbourHitPosition:Position = gamestate.getNeighbourHitPosition(hitPosition);

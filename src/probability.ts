@@ -1,11 +1,11 @@
 import {GameState} from "./gameState"
 import {Position} from "./position"
-import {BoardToJSON} from "./boardToJSON"
 
 export class Probability{
+
+    // Returns an array of valid positions, with the frequency of each position being proportional to it's "probability" calculuated by getDistribution()
     public static getTargetArray(gamestate:GameState, grid:number, init:boolean):Array<Position>{
         let shift:number = Probability.getOptimalShift(gamestate, grid);
-        console.log("GRID = ", grid, " with optimal shift ", shift," _______________---------");
         let distribution:number[][] = Probability.getDistribution(gamestate);
         let validTargets:Array<Position> = [];
         for (let row:number = 0; row<10; row++){
@@ -29,11 +29,14 @@ export class Probability{
         }
         return validTargets;
     }
+
+    // given a gamestate and a grid size, it returns the shift s.t. the shifted grid has minimal unchecked cells
+    // Note that we have limited grid to be either 2 or 4 and shift is either 0 or 2 so that we stay on the "black cells" 
     public static getOptimalShift(gamestate:GameState, grid:number):number{
         if (grid==2) {
             return 0;
         }
-        let counts:number[] = [];
+        let counts:number[] = [0,0];
         for (let shift of [0,2]){
             let counter:number = 0;
             for (let row:number = 0; row <10; row++){
@@ -52,6 +55,9 @@ export class Probability{
         }
         return 0;
     }
+
+    // returns a (not normalised) distribution on the board where each cell!s "probability" is proportional to the number of 
+    // ways a ship can be legally placed on the board s.t. it covers the given cell
     public static getDistribution(gamestate:GameState):number[][]{
         let ans:number[][] = [
             [0,0,0,0,0,0,0,0,0,0],
@@ -73,10 +79,9 @@ export class Probability{
                 }
             }   
         }
-        console.log("The distribution: ");
-        console.log(ans);
         return ans;
     }
+
     public static countWays(row:number, column:number, gamestate:GameState):number{
         let count:number = 0;     
         for (let shipLength of gamestate.remainingShips){
@@ -100,6 +105,7 @@ export class Probability{
         }
         return count;
     }
+
     public static getRandomShipPositions():Array<{ StartingSquare: { Row:string, Column:number }, EndingSquare : { Row:string , Column:number } }>{
         let answer:Array<{ StartingSquare: { Row:string, Column:number }, EndingSquare : { Row:string , Column:number } }> = [];
         let ships:number[] = [2,3,3,4,5];
@@ -154,12 +160,12 @@ export class Probability{
     }
 
     public static shuffleArray(array:number[]):number[] {
-    for (var i = array.length - 1; i > 0; i--) {
-        var j = Math.floor(Math.random() * (i + 1));
-        var temp = array[i];
-        array[i] = array[j];
-        array[j] = temp;
+        for (var i = array.length - 1; i > 0; i--) {
+            var j = Math.floor(Math.random() * (i + 1));
+            var temp = array[i];
+            array[i] = array[j];
+            array[j] = temp;
+        }
+        return array;
     }
-    return array;
-}
 }

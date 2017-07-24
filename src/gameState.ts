@@ -34,7 +34,7 @@ export class GameState{
         9:"J"
     };
 
-    // 0 means unchecked, 1 means hit,2 means sunk, -1 means nothing there
+    // 0 means unchecked, 1 means hit,2 means sunk, -1 means missed
     public board:number[][] = [
         [0,0,0,0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,0,0,0],
@@ -69,8 +69,6 @@ export class GameState{
         console.log();
     }
 
-    //  returns true iff this.board has 0 at position (also checks if position is on the board)
-    // takes zero indexed position
     public isValidTarget(position:Position):boolean{
         if (position.row >= 0){
             if (position.row < 10){
@@ -85,6 +83,7 @@ export class GameState{
     }
 
     public eliminateSunkenShips():void{
+        // first scans rows for sunken ships
         for (let row:number =0; row<10; row++){
             for (let column:number = 0; column<10; column++){
                 let startColumn:number = column;
@@ -101,6 +100,7 @@ export class GameState{
                 }
             }
         }
+        // then checks columns for sunken ships
         for (let column:number =0; column<10; column++){
             for (let row:number = 0; row<10; row++){
                 let startRow:number = row;
@@ -191,6 +191,7 @@ export class GameState{
         return false
     }
 
+    // returns a position on the board that is a 1 i.e. a ship we hit but haven't sunk yet (if it exists)
     public getHitPosition():Position{
         for (let row:number = 0; row<10; row++){
             for (let column:number = 0; column<10; column ++){
@@ -202,6 +203,7 @@ export class GameState{
         return null
     }
 
+    // given hitPosition, returns a position with a hit that is a neighbour of hitPosition (if such position exists)
     public getNeighbourHitPosition(hitPosition:Position):Position{
         let row:number = hitPosition.row;
         let column:number = hitPosition.column;
@@ -219,7 +221,6 @@ export class GameState{
     }
 
     public targetNeighbours(hitPosition:Position):{"Row":string, "Column":number}{
-        // let distr:number[][] = Probability.getDistribution(this);
         let x:number[] = [1,-1,0,0];
         let y:number[] = [0,0,1,-1];
         for (let i of Probability.shuffleArray([0,1,2,3])){
@@ -291,7 +292,6 @@ export class GameState{
             grid = 2;
         }
         let validTargets:Array<Position> = Probability.getTargetArray(this, grid, init);
-        if (validTargets.length == 0) console.log("WARNING: validtargets has length 0!");
         let rand:number = Math.random()*validTargets.length;
         return validTargets[Math.floor(rand)];
     }
