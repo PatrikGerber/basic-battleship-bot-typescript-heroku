@@ -72,6 +72,8 @@ export class Probability{
                 }
             }   
         }
+        console.log("The distribution: ");
+        console.log(ans);
         return ans;
     }
     public static countWays(row:number, column:number, gamestate:GameState):number{
@@ -95,7 +97,7 @@ export class Probability{
         }
         return count;
     }
-    public static randomShipPositions():Array<{ StartingSquare: { Row:string, Column:number }, EndingSquare : { Row:string , Column:number } }>{
+    public static getRandomShipPositions():Array<{ StartingSquare: { Row:string, Column:number }, EndingSquare : { Row:string , Column:number } }>{
         let answer:Array<{ StartingSquare: { Row:string, Column:number }, EndingSquare : { Row:string , Column:number } }> = [];
         let ships:number[] = [2,3,3,4,5];
         let board:number[][] = [

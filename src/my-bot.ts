@@ -6,7 +6,7 @@ export class MyBot {
     public counter:number = 0;
     public getShipPositions() {
         try {
-            return Probability.randomShipPositions();
+            return Probability.getRandomShipPositions();
         }
         catch(error){
             return [

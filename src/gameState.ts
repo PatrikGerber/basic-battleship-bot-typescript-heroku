@@ -290,6 +290,7 @@ export class GameState{
             grid = 2;
         }
         let validTargets:Array<Position> = Probability.getTargetArray(this, grid, init);
+        if (validTargets.length == 0) console.log("WARNING: validtargets has length 0!");
         let rand:number = Math.random()*validTargets.length;
         return validTargets[Math.floor(rand)];
     }
