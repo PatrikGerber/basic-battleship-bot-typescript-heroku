@@ -8,41 +8,12 @@ export class Probability{
         console.log("GRID = ", grid, " with optimal shift ", shift," _______________---------");
         let distribution:number[][] = Probability.getDistribution(gamestate);
         let validTargets:Array<Position> = [];
-        // if (init) {
-        //     for (let row:number = 0; row<10; row++){
-        //         if ((row == 0) || (row == 9)){
-        //             for (let column:number = 0; column<10; column==0){
-        //                 if (gamestate.board[row][column] == 0) {
-        //                     for (let i:number = 0; i<5; i++){
-        //                         validTargets.push(new Position({"Row":GameState.numberToLetter[row], "Column":column+1}));
-        //                         console.log("Validtargets current length: ", validTargets.length);
-        //                     }
-        //                 }
-        //             }
-        //         }
-        //         else {
-        //             if (gamestate.board[row][0]==0){
-        //                 for (let i:number = 0; i<5; i++){
-        //                         validTargets.push(new Position({"Row":GameState.numberToLetter[row], "Column":1}));
-        //                         console.log("Validtargets current length: ", validTargets.length);
-        //                     }
-        //             }
-        //             if (gamestate.board[row][9]==0){
-        //                 for (let i:number = 0; i<5; i++){
-        //                         validTargets.push(new Position({"Row":GameState.numberToLetter[row], "Column":10}));
-        //                         console.log("Validtargets current length: ", validTargets.length);                                
-        //                     }
-        //             }
-        //         }
-        //     }
-        // }
-        // gamestate.display();
         for (let row:number = 0; row<10; row++){
             for (let column:number = 0; column<10; column++){
                 let pos:Position = new Position({"Row": GameState.numberToLetter[row],"Column":column+1});
                 if (init){
                     if (gamestate.isValidTarget(pos)){
-                        for (let frequency:number = 0; frequency < Math.floor(34/distribution[pos.row][pos.column]); frequency++){
+                        for (let frequency:number = 0; frequency < Math.floor(34/Math.sqrt(distribution[pos.row][pos.column])); frequency++){
                             validTargets.push(pos) ;
                         }
                     }
