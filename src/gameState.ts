@@ -83,7 +83,7 @@ export class GameState{
         return false;
     }
 
-    public eliminateSunkenShips(init:boolean = false):void{
+    public eliminateSunkenShips():void{
         // first scans rows for sunken ships
         for (let row:number =0; row<10; row++){
             for (let column:number = 0; column<10; column++){
@@ -92,7 +92,7 @@ export class GameState{
                     while ((column<10) && (this.board[row][column]==1)){
                         column++;
                     }
-                    let sunken:boolean = this.isSunken(row,startColumn,row,column-1, init);
+                    let sunken:boolean = this.isSunken(row,startColumn,row,column-1);
                     if (sunken){
                         let shipLength:number = column-startColumn;
                         this.remainingShips = this.remove(shipLength);
@@ -109,7 +109,7 @@ export class GameState{
                     while ((row<10) && (this.board[row][column]==1)){
                         row++;
                     }
-                    let sunken:boolean = this.isSunken(startRow,column,row-1,column, init);
+                    let sunken:boolean = this.isSunken(startRow,column,row-1,column);
                     if (sunken){
                         let shipLength:number = row-startRow;
                         this.remainingShips = this.remove(shipLength);
@@ -225,14 +225,9 @@ export class GameState{
         return (!canFit);
     }
 
-    public isSunken(startRow:number, startColumn:number, endRow:number, endColumn:number, init:boolean=false):boolean{
+    public isSunken(startRow:number, startColumn:number, endRow:number, endColumn:number):boolean{
         if ((startRow==endRow) && (startColumn == endColumn)){
             return false;
-        }
-        if (!init){
-            if (this.canEliminateGivenRemainingShips(startRow, startColumn, endRow, endColumn)) {
-                return true;
-            }
         }
         if (startRow!=endRow){
             if (Math.abs(endRow - startRow)+1 == this.remainingShips[this.remainingShips.length-1]){
