@@ -79,22 +79,41 @@ export class Probability{
     public static countWays(row:number, column:number, gamestate:GameState):number{
         let count:number = 0;     
         for (let shipLength of gamestate.remainingShips){
-            let rowDirections:number[] = [1,-1,0,0];
-            let columnDirections:number[] = [0,0,1,-1];
-            for (let i:number = 0; i<4; i++){
-                let dr:number = rowDirections[i];
-                let dc:number = columnDirections[i];
-                let valid:boolean = true;
-                for (let j:number = 0; j<shipLength; j++){
-                    if (!gamestate.isValidTarget(new Position({"Row":GameState.numberToLetter[row+dr*j], "Column":column+dc*j+1}))){
-                        valid = false;
+            let rowDirections:number[] = [1,0];
+            let columnDirections:number[] = [0,1];
+            for (let dir:number = 0; dir<2; dir++){
+                let dr:number = rowDirections[dir];
+                let dc:number = columnDirections[dir];
+                for (let shift:number = 0; shift<shipLength; shift++){
+                    let valid:boolean = true;
+                    for (let j:number = -shift; j<shipLength-shift; j++){
+                        if (!gamestate.isValidTarget(new Position({"Row":GameState.numberToLetter[row+dr*j], "Column":column+dc*j+1}))){
+                            valid = false;
+                        }
+                    }   
+                    if (valid){
+                        count++;
                     }
-                }   
-                if (valid){
-                    count++;
                 }
             } 
         }
+        // for (let shipLength of gamestate.remainingShips){
+        //     let rowDirections:number[] = [1,-1,0,0];
+        //     let columnDirections:number[] = [0,0,1,-1];
+        //     for (let i:number = 0; i<4; i++){
+        //         let dr:number = rowDirections[i];
+        //         let dc:number = columnDirections[i];
+        //         let valid:boolean = true;
+        //         for (let j:number = 0; j<shipLength; j++){
+        //             if (!gamestate.isValidTarget(new Position({"Row":GameState.numberToLetter[row+dr*j], "Column":column+dc*j+1}))){
+        //                 valid = false;
+        //             }
+        //         }   
+        //         if (valid){
+        //             count++;
+        //         }
+        //     } 
+        // }
         return count;
     }
     public static getRandomShipPositions():Array<{ StartingSquare: { Row:string, Column:number }, EndingSquare : { Row:string , Column:number } }>{
