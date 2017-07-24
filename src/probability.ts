@@ -140,32 +140,43 @@ export class Probability{
             gamestate.eliminateSunkenShips();
             gamestate.eliminateNeighboursOfSunken();
             let found:boolean = false
-            while (!found) {
+            while (!found){
                 let pos:Position = gamestate.randomDraw(true);
-                let direction:number = Math.floor(Math.random()*4);
                 let rowDirections:number[] = [0,0,1,-1];
                 let columnDirections:number[] = [1,-1,0,0];
+                let directions:number[] = Probability.shuffleArray([0,1,2,3]);
+                for (let i:number = 0; i<4; i++){
+                    let dr:number = rowDirections[directions[i]];
+                    let dc:number = columnDirections[directions[i]];
 
-                let dr:number = rowDirections[direction];
-                let dc:number = columnDirections[direction];
-
-                let valid:boolean = true;
-                for (let i:number = 0; i<len; i++){
-                    if (!gamestate.isValidTarget(new Position({"Row":GameState.numberToLetter[pos.row+i*dr], "Column":pos.column+1+i*dc}))){
-                        valid = false;
+                    let valid:boolean = true;
+                    for (let i:number = 0; i<len; i++){
+                        if (!gamestate.isValidTarget(new Position({"Row":GameState.numberToLetter[pos.row+i*dr], "Column":pos.column+1+i*dc}))){
+                            valid = false;
+                        }
                     }
-                }
-                if (valid) {
-                    found = true;
-                    answer.push({StartingSquare:{Row:GameState.numberToLetter[pos.row], Column:pos.column+1},
-                                EndingSquare:{Row:GameState.numberToLetter[pos.row+(len-1)*dr], Column:pos.column+1+(len-1)*dc}
-                            });
-                    for (let j:number = 0; j<len; j++){
-                        board[pos.row+j*dr][pos.column+j*dc] = 2;
+                    if (valid) {
+                        found = true;
+                        answer.push({StartingSquare:{Row:GameState.numberToLetter[pos.row], Column:pos.column+1},
+                                    EndingSquare:{Row:GameState.numberToLetter[pos.row+(len-1)*dr], Column:pos.column+1+(len-1)*dc}
+                                });
+                        for (let j:number = 0; j<len; j++){
+                            board[pos.row+j*dr][pos.column+j*dc] = 2;
+                        }
                     }
                 }
             }
         }
         return answer;
     }
+
+    public static shuffleArray(array:number[]):number[] {
+    for (var i = array.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+    return array;
+}
 }
