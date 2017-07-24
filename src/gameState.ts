@@ -219,27 +219,28 @@ export class GameState{
     }
 
     public targetNeighbours(hitPosition:Position):{"Row":string, "Column":number}{
-        let distr:number[][] = Probability.getDistribution(this);
+        // let distr:number[][] = Probability.getDistribution(this);
         let x:number[] = [1,-1,0,0];
         let y:number[] = [0,0,1,-1];
-        let potentialTargets:{"Row": string, "Column":number}[] = [];
-        for (let i:number = 0; i<4; i++){
-            let dr:number = hitPosition.row+x[i];
-            let dc:number = hitPosition.column+y[i];
-            let pos:Position = new Position({"Row": GameState.numberToLetter[dr], "Column":dc+1});
-            for (let frequency:number = 0; frequency<distr[dr][dc]; frequency++){
-                potentialTargets.push(pos.structure());
-            }
-        }
-        return (potentialTargets[Math.floor(Math.random()*potentialTargets.length)])
-        // for (let i:number=0; i<4; i++){
+        // let potentialTargets:{"Row": string, "Column":number}[] = [];
+        // for (let i:number = 0; i<4; i++){
         //     let dr:number = hitPosition.row+x[i];
         //     let dc:number = hitPosition.column+y[i];
         //     let pos:Position = new Position({"Row": GameState.numberToLetter[dr], "Column":dc+1});
-        //     if (this.isValidTarget(pos)){
-        //         return pos.structure();
+        //     for (let frequency:number = 0; frequency<distr[dr][dc]; frequency++){
+        //         potentialTargets.push(pos.structure());
         //     }
         // }
+        // return (potentialTargets[Math.floor(Math.random()*potentialTargets.length)])
+        for (let i:number=0; i<4; i++){
+            let dr:number = hitPosition.row+x[i];
+            let dc:number = hitPosition.column+y[i];
+            let pos:Position = new Position({"Row": GameState.numberToLetter[dr], "Column":dc+1});
+            if (this.isValidTarget(pos)){
+                return pos.structure();
+            }
+        }
+        return null
     }
 
     public findTargetAlongLine(hitPosition:Position, neighbourHitPosition:Position):{"Row":string, "Column":number}{
