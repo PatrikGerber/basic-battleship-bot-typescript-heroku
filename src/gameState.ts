@@ -232,7 +232,7 @@ export class GameState{
         //     }
         // }
         // return (potentialTargets[Math.floor(Math.random()*potentialTargets.length)])
-        for (let i:number=0; i<4; i++){
+        for (let i of Probability.shuffleArray([0,1,2,3])){
             let dr:number = hitPosition.row+x[i];
             let dc:number = hitPosition.column+y[i];
             let pos:Position = new Position({"Row": GameState.numberToLetter[dr], "Column":dc+1});
