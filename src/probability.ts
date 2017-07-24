@@ -15,6 +15,7 @@ export class Probability{
                         if (gamestate.board[row][column] == 0) {
                             for (let i:number = 0; i<5; i++){
                                 validTargets.push(new Position({"Row":GameState.numberToLetter[row], "Column":column+1}));
+                                console.log("Validtargets current length: ", validTargets.length);
                             }
                         }
                     }
@@ -23,11 +24,13 @@ export class Probability{
                     if (gamestate.board[row][0]==0){
                         for (let i:number = 0; i<5; i++){
                                 validTargets.push(new Position({"Row":GameState.numberToLetter[row], "Column":1}));
+                                console.log("Validtargets current length: ", validTargets.length);
                             }
                     }
                     if (gamestate.board[row][9]==0){
                         for (let i:number = 0; i<5; i++){
                                 validTargets.push(new Position({"Row":GameState.numberToLetter[row], "Column":10}));
+                                console.log("Validtargets current length: ", validTargets.length);                                
                             }
                     }
                 }
@@ -39,7 +42,7 @@ export class Probability{
                 let pos:Position = new Position({"Row": GameState.numberToLetter[row],"Column":column+1});
                 if (init){
                     if (gamestate.isValidTarget(pos)){
-                        for (let frequency:number = 0; frequency < Math.floor(Math.pow(1.1,distribution[pos.row][pos.column])*distribution[pos.row][pos.column]); frequency++){
+                        for (let frequency:number = 0; frequency < distribution[pos.row][pos.column]; frequency++){
                             validTargets.push(pos) ;
                         }
                     }
