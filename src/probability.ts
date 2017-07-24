@@ -13,7 +13,7 @@ export class Probability{
                 if ((row == 0) || (row == 9)){
                     for (let column:number = 0; column<10; column==0){
                         if (gamestate.board[row][column] == 0) {
-                            for (let i:number = 0; i<20; i++){
+                            for (let i:number = 0; i<10; i++){
                                 validTargets.push(new Position({"Row":GameState.numberToLetter[row], "Column":column+1}));
                             }
                         }
@@ -21,12 +21,12 @@ export class Probability{
                 }
                 else {
                     if (gamestate.board[row][0]==0){
-                        for (let i:number = 0; i<20; i++){
+                        for (let i:number = 0; i<10; i++){
                                 validTargets.push(new Position({"Row":GameState.numberToLetter[row], "Column":1}));
                             }
                     }
                     if (gamestate.board[row][9]==0){
-                        for (let i:number = 0; i<20; i++){
+                        for (let i:number = 0; i<10; i++){
                                 validTargets.push(new Position({"Row":GameState.numberToLetter[row], "Column":10}));
                             }
                     }
