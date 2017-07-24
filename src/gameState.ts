@@ -83,7 +83,7 @@ export class GameState{
         return false;
     }
 
-    public eliminateSunkenShips():void{
+    public eliminateSunkenShips(init:boolean = false):void{
         // first scans rows for sunken ships
         for (let row:number =0; row<10; row++){
             for (let column:number = 0; column<10; column++){
@@ -92,7 +92,7 @@ export class GameState{
                     while ((column<10) && (this.board[row][column]==1)){
                         column++;
                     }
-                    let sunken:boolean = this.isSunken(row,startColumn,row,column-1);
+                    let sunken:boolean = this.isSunken(row,startColumn,row,column-1, init);
                     if (sunken){
                         let shipLength:number = column-startColumn;
                         this.remainingShips = this.remove(shipLength);
@@ -109,7 +109,7 @@ export class GameState{
                     while ((row<10) && (this.board[row][column]==1)){
                         row++;
                     }
-                    let sunken:boolean = this.isSunken(startRow,column,row-1,column);
+                    let sunken:boolean = this.isSunken(startRow,column,row-1,column, init);
                     if (sunken){
                         let shipLength:number = row-startRow;
                         this.remainingShips = this.remove(shipLength);
@@ -165,9 +165,74 @@ export class GameState{
         }
     }
 
-    public isSunken(startRow:number, startColumn:number, endRow:number, endColumn:number):boolean{
+    public canEliminateGivenRemainingShips(startRow:number, startColumn:number, endRow:number, endColumn:number):boolean{
+        let canFit:boolean = false;
+        if (startRow != endRow){
+            let currentLength:number = Math.abs(endRow - startRow)+1;
+            let count:number = 0;
+            let i:number = startRow;
+            while (i<10){
+                if ((this.board[i][startColumn] == 1) || (this.board[i][startColumn] == 0)){
+                    count++;
+                }
+                else break;
+                i++;
+            }
+            i = startRow-1;
+            while (i>=0){
+                if ((this.board[i][startColumn] == 1) || (this.board[i][startColumn] == 0)){
+                    count++;
+                }
+                else break;
+                i--;
+            }
+            for (let index:number = 0; index<this.remainingShips.length; index++){
+                if (currentLength < this.remainingShips[index]){
+                    if (count>=this.remainingShips[index]){
+                        canFit = true;
+                    }
+                }
+            }
+        }
+        else {
+            let currentLength:number = Math.abs(endColumn - startColumn)+1;
+            let canFit:boolean = false;
+            let count:number = 0;
+            let i:number = startColumn;
+            while (i<10){
+                if ((this.board[startRow][i] == 1) || (this.board[startRow][i] == 0)){
+                    count++;
+                }
+                else break;
+                i++;
+            }
+            i = startRow-1;
+            while (i>=0){
+                if ((this.board[startRow][i] == 1) || (this.board[startRow][i] == 0)){
+                    count++;
+                }
+                else break;
+                i--;
+            }
+            for (let index:number = 0; index<this.remainingShips.length; index++){
+                if (currentLength < this.remainingShips[index]){
+                    if (count>=this.remainingShips[index]){
+                        canFit = true;
+                    }
+                }
+            }
+        }
+        return (!canFit);
+    }
+
+    public isSunken(startRow:number, startColumn:number, endRow:number, endColumn:number, init:boolean=false):boolean{
         if ((startRow==endRow) && (startColumn == endColumn)){
             return false;
+        }
+        if (!init){
+            if (this.canEliminateGivenRemainingShips(startRow, startColumn, endRow, endColumn)) {
+                return true;
+            }
         }
         if (startRow!=endRow){
             if (Math.abs(endRow - startRow)+1 == this.remainingShips[this.remainingShips.length-1]){
