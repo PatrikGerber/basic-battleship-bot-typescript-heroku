@@ -8,31 +8,31 @@ export class Probability{
         console.log("GRID = ", grid, " with optimal shift ", shift," _______________---------");
         let distribution:number[][] = Probability.getDistribution(gamestate);
         let validTargets:Array<Position> = [];
-        if (init) {
-            for (let row:number = 0; row<10; row++){
-                if ((row == 0) || (row == 9)){
-                    for (let column:number = 0; column<10; column==0){
-                        if (gamestate.board[row][column] == 0) {
-                            for (let i:number = 0; i<10; i++){
-                                validTargets.push(new Position({"Row":GameState.numberToLetter[row], "Column":column+1}));
-                            }
-                        }
-                    }
-                }
-                else {
-                    if (gamestate.board[row][0]==0){
-                        for (let i:number = 0; i<10; i++){
-                                validTargets.push(new Position({"Row":GameState.numberToLetter[row], "Column":1}));
-                            }
-                    }
-                    if (gamestate.board[row][9]==0){
-                        for (let i:number = 0; i<10; i++){
-                                validTargets.push(new Position({"Row":GameState.numberToLetter[row], "Column":10}));
-                            }
-                    }
-                }
-            }
-        }
+        // if (init) {
+        //     for (let row:number = 0; row<10; row++){
+        //         if ((row == 0) || (row == 9)){
+        //             for (let column:number = 0; column<10; column==0){
+        //                 if (gamestate.board[row][column] == 0) {
+        //                     for (let i:number = 0; i<10; i++){
+        //                         validTargets.push(new Position({"Row":GameState.numberToLetter[row], "Column":column+1}));
+        //                     }
+        //                 }
+        //             }
+        //         }
+        //         else {
+        //             if (gamestate.board[row][0]==0){
+        //                 for (let i:number = 0; i<10; i++){
+        //                         validTargets.push(new Position({"Row":GameState.numberToLetter[row], "Column":1}));
+        //                     }
+        //             }
+        //             if (gamestate.board[row][9]==0){
+        //                 for (let i:number = 0; i<10; i++){
+        //                         validTargets.push(new Position({"Row":GameState.numberToLetter[row], "Column":10}));
+        //                     }
+        //             }
+        //         }
+        //     }
+        // }
         // gamestate.display();
         for (let row:number = 0; row<10; row++){
             for (let column:number = 0; column<10; column++){
