@@ -18,10 +18,15 @@ export class MyBot {
         }
     }
 
+<<<<<<< HEAD
     // gamestate is the body of the post request i.e. req.body
     public selectTarget(gamestate:GameState) {
 
         let previousShot = (gamestate.MyShots.length != 0)?(gamestate.MyShots[gamestate.MyShots.length-1].Position):null;
+=======
+    public selectTarget(gamestate) {
+        var previousShot = gamestate.MyShots && gamestate.MyShots[gamestate.MyShots.length-1];
+>>>>>>> parent of e475961... First commit, just a test
         if(previousShot) {
             try{
                 return this.getNextTarget(gamestate);
