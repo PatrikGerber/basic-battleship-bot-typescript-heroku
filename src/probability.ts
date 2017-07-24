@@ -132,7 +132,7 @@ export class Probability{
             let count:number = 0;
             while (!found){
                 if (count>1000) {
-                    found = true;
+                    console.log("while loop exceeded 1000 iterations, so default shipplacement was returned");
                     return [
                         { StartingSquare: { Row: "A", Column: 1 }, EndingSquare : { Row: "A", Column: 5 } },
                         { StartingSquare: { Row: "C", Column: 1 }, EndingSquare : { Row: "C", Column: 4 } },
