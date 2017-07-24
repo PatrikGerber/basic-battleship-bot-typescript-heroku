@@ -124,9 +124,9 @@ export class Probability{
         for (let len of ships){
             let gamestate:GameState = new GameState({});
             gamestate.board = board;
-            gamestate.eliminateSunkenShips(true);
+            gamestate.eliminateSunkenShips();
             gamestate.eliminateNeighboursOfSunken();
-            gamestate.eliminateSunkenShips(true);
+            gamestate.eliminateSunkenShips();
             gamestate.eliminateNeighboursOfSunken();
             // We have to do the above twice because we might be able to sink additional ships 
             // after eliminating neighbours of already sunken ships
