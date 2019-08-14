@@ -1,6 +1,7 @@
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import {MyBot} from './src/my-bot';
+import {GameState} from "./src/gameState"
 
 export class Router {
     public static route(): void {
@@ -18,7 +19,7 @@ export class Router {
         });
 
         app.post('/SelectTarget', (req, res) => {
-            let target = myBot.selectTarget(req.body);
+            let target = myBot.selectTarget(new GameState(req.body));
             res.send(target);
         });
 
